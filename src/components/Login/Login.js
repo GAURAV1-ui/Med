@@ -9,8 +9,8 @@ import Button from '../UI/Button'
 import styles from './Login.module.css'
 const Login = (props) => {
 
-    const firstNameInputRef = useRef();
-    const lastNameInputRef = useRef();
+    const phoneInputRef = useRef();
+    const passwordInputRef = useRef();
     
     const navigate = useNavigate();
 
@@ -18,8 +18,14 @@ const Login = (props) => {
       navigate("/signup");
     } 
 
-    const handleClickLogin =() => {
+
+    const handleClickLogin = (event) => {
+        event.preventDefault();
+        const phoneNumber = phoneInputRef.current.value;
+        const password = passwordInputRef.current.value;
+        console.log(phoneNumber);
         navigate("/");
+        // const enteredFirstName = 
     }
   return (
     // <Modal className = {styles.modal} onClose = {props.onCloseLogin}>
@@ -59,30 +65,33 @@ const Login = (props) => {
          <h1>MedInclude</h1>
         <h5>Simple. Understandable. Accessible</h5>
     </div>
-    <form >
+    <form onSubmit={handleClickLogin}>
     <Input 
-    ref = {firstNameInputRef}
-    id = "fisrtName" 
-    type="text" 
+    ref = {phoneInputRef}
+    id = "phone" 
+    type="tel"  
+    required
     // isValid={emailIsValid} 
-    value =""
+    placeholder = "9693098513"
     // onChange={emailChangeHandler}
     // onBlur={validateEmailHandler}/>
     />
     <Input 
-    ref = {lastNameInputRef}
-    id = "lastName" 
-    type="text" 
+    ref = {passwordInputRef}
+    id = "password" 
+    type="password" 
+    placeholder = "•••••••••••"
+    required
     // isValid={emailIsValid} 
-    value =""
     // onChange={emailChangeHandler}
     // onBlur={validateEmailHandler}/>
     />
     <CheckBox/>
-    </form>
     <div className={styles.button}>
-    <Button onClick = {handleClickLogin}>Log In</Button>
+    <Button type = "submit" onClick = {handleClickLogin}>Log In</Button>
     </div>
+    </form>
+   
     <div className={styles.signup}>
     <p>Don't have an account? <button style={{color: "green", backgroundColor: "transparent",border:"none",fontSize:"17px", cursor:"pointer"}} onClick = {handleClickSignup}>Sign Up</button></p>
     </div>

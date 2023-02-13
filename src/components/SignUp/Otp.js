@@ -40,7 +40,7 @@ const Otp = (props) => {
         />
         </form>
         <div className={styles.button}>
-        <Button onClick = {handleClickOtp}>Continue</Button>
+        <Button onClick = {handleClickOtp}>Request OTP</Button>
         </div>
     </Card>
     </div>

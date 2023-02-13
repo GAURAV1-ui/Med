@@ -1,5 +1,5 @@
-import React,{useRef} from 'react'
-import { useNavigate } from 'react-router-dom';
+import React,{useState} from 'react'
+import { json, useNavigate } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
@@ -8,14 +8,29 @@ import styles from './SignUp.module.css';
 
 const SignUp = (props) => {
 
-    const firstNameInputRef = useRef();
-    const lastNameInputRef = useRef();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
 
     const navigate = useNavigate();
 
-    const handleClickSignup =() => {
+    const firstNameChangeHandler = (e) => {
+        setFirstName(e.target.value);
+    }
+    const lastNameChangeHandler = (e) => {
+      setLastName(e.target.value);
+  }
+    const handleClickSignup =(event) => {
+      event.preventDefault();
+      const names = {
+        firstName: firstName,
+        lastName: lastName
+      }   
+      console.log(names);
+      localStorage.setItem("names", JSON.stringify(names));
+      // se
       navigate("/emailverification");
     } 
+
   return (
     <div>
         <Back/>
@@ -27,33 +42,33 @@ const SignUp = (props) => {
         <div className={styles.heading}>
             <h2>What name should we call you?</h2>
         </div>
-        <form >
+        <form>
         <Input 
-        ref = {firstNameInputRef}
         id = "fisrtName" 
         label= "First Name" 
         type="text" 
         placeholder= "John"
+        onChange={firstNameChangeHandler}
+        value = {firstName}
         // isValid={emailIsValid} 
-        value =""
-        // onChange={emailChangeHandler}
+        
         // onBlur={validateEmailHandler}/>
         />
         <Input 
-        ref = {lastNameInputRef}
         id = "lastName" 
-        label= "LastName" 
+        label= "Last Name" 
         type="text" 
-        // isValid={emailIsValid} 
-        value =""
         placeholder ="Doe"
-        // onChange={emailChangeHandler}
+        value = {lastName}
+        // isValid={emailIsValid} 
+        onChange={lastNameChangeHandler}
         // onBlur={validateEmailHandler}/>
         />
-        </form>
         <div className={styles.button}>
-        <Button onClick = {handleClickSignup}>Continue</Button>
+        <Button type = "submit" onClick = {handleClickSignup}>Continue</Button>
         </div>
+        </form>
+        
     </Card>
     </div>
   );

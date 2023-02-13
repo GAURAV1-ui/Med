@@ -4,14 +4,14 @@ const CheckBox = () => {
   return (
     <div> 
     <div className={styles.loginCheckBox}>
-        <div className={styles.checkbox}>
-        <input type="checkbox" id="checkbox" name="checkbox" value="checkbox1"/>
-        <label for="checkbox"></label>
+        <div className={styles.checkbox1}>
+        <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1" required/>
+        <label for="checkbox1"></label>
         <span className={styles.text}>I agree with Terms of Service & Privacy Policy</span>
         </div>
-        <div className={styles.checkbox}>
-        <input type="checkbox" id="checkbox" name="checkbox" value="checkbox2"/>
-        <label for="checkbox"></label>
+        <div className={styles.checkbox1}>
+        <input type="checkbox" id="checkbox2" name="checkbox2" value="checkbox2"/>
+        <label for="checkbox2"></label>
         <span className={styles.text}>Subscibe to our Newletter</span>
         </div>
         
