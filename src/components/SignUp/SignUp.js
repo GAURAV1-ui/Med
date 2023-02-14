@@ -27,7 +27,6 @@ const SignUp = (props) => {
       }   
       console.log(names);
       localStorage.setItem("names", JSON.stringify(names));
-      // se
       navigate("/emailverification");
     } 
 

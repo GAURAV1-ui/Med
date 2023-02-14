@@ -11,7 +11,6 @@ import styles from './Back.module.css';
     <div className={styles.backNavigate}>
         <img src={logo} alt = "" onClick = {goBack}/>
         <div className={styles.back}>
-        
         <button onClick = {goBack}> Back </button>
         </div>
     </div>

@@ -40,7 +40,7 @@ const Login = (props) => {
         }
         setErrorMsg("");
 
-        const emails = email+"@domain.com"
+        const emails = "+91"+email+"@domain.com"
         console.log(emails);
         // setSubmitButtonDisabled(true);
         signInWithEmailAndPassword(auth, emails, password)

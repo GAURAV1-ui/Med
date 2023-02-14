@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect,useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Menu/Navbar';
@@ -11,7 +11,11 @@ import Password from "./components/SignUp/Password";
 import NewRecord from "./NewRecord/NewRecord";
 
 function App() {
-  // const [LoginIsShown, setLoginIsShown] = useState(false);
+  const [isAuthenticated, setIsAuthentication] = useState(false);
+
+  useEffect (()=>{
+     
+  })
 
   return (
     <main>      
@@ -21,9 +25,6 @@ function App() {
           <Route exact path="/" element={<Portal/>}/>
           <Route exact path="/records" element={<Records/>}/>    
           <Route exact path = "/newrecord" element = {<NewRecord/>}/>
-
-        
-       
           <Route exact path= "/login" element ={<Login/>}/>
           <Route exact path ="/signup" element = {<SignUp/>}/>
             <Route exact path ="/emailverification" element = {<EmailVerification/>}/>

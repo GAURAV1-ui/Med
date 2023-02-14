@@ -65,11 +65,10 @@
 .signup p {
     margin-left: 10px;
 }
-input[type=tel]{
+input[type=number]{
     color:#106e5b;
     font-weight: 500;
     font-size: 20px;
-
 }
 input[type=password]{
     color:#106e5b;
