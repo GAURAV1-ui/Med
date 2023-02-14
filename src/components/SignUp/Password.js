@@ -18,7 +18,7 @@ const Password = (props) => {
 
   const handleSubmission = (event) => {
     event.preventDefault();
-    console.log(values);
+    console.log(values)
     if (!values.email || !values.pass) {
       setErrorMsg("Fill all fields");
       return;
@@ -52,6 +52,16 @@ const Password = (props) => {
             <h2>Create an E-mail and password for your account</h2>
         </div>
         <form onSubmit={handleSubmission}>
+        <Input 
+        id = "email" 
+        label= "Email" 
+        type="email" 
+        // isValid={emailIsValid} 
+        onChange={(event) =>
+          setValues((prev) => ({ ...prev, email: event.target.value }))
+        }
+        // onBlur={validateEmailHandler}/>
+        />
         <Input 
         id = "password" 
         label= "Password" 

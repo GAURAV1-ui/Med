@@ -5,7 +5,8 @@ import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
 import Back from './Back';
 import styles from './EmailVerification.module.css';
-import { useUserAuth } from '../../store/auth-context';
+import {auth} from '../../firebase'
+import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth';
 
 const EmailVerification = (props) => {
 
@@ -13,40 +14,84 @@ const EmailVerification = (props) => {
 
     const [error, setError] = useState("");
     const [number, setNumber] = useState(countryCode);
+    const [otp, setOtp] = useState('');
     const [flag, setFlag] = useState(false);
+
     const navigate = useNavigate();
 
     const numberChangeHandler = (e) => {
         setNumber(e.target.value);
     }
+    const otpChangeHandler = (e) => {
+        setOtp(e.target.value);
+    }
+
+    const generateRecaptcha = () => {
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+             'size': 'invisible',
+             'callback': (response) => {
+
+             }
+        }, auth);
+    }
+
 
     const getOtp =(event) => {
         event.preventDefault();
         if(number.length >= 12){
+            
+           generateRecaptcha();
+           let appVerifier = window.recaptchaVerifier;
+           
+           signInWithPhoneNumber(auth,number,appVerifier)
+           .then(confirmationResult => {
+            window.confirmationResult = confirmationResult;
             setFlag(true);
-          
+           }).catch((error) => {
+            console.log(error);
+            setFlag(false);
+           })          
         }
     }
+
+    const verifyOtp = (event) => {
+        event.preventDefault();
+    if(otp.length === 6){
+    const code = otp;
+    window.confirmationResult.confirm(code).then((result) => {
+  // User signed in successfully.
+    const user = result.user;
+    console.log(user);
+    alert("succes");
+    navigate("/password");
+  // ...
+}).catch((error) => {
+    alert("Invalid otp");  // User couldn't sign in (bad verification code?)
+  // ...
+});
+}
+    }
+
 
   return (
     <div>
         <Back/>
     <Card>
-
+        {!flag &&
         <div>
+        <div>
+            
             <div className= {styles.polygon}></div>
             <hr className= {styles.line}/>
         </div>
 
         <div className={styles.heading}>
-            <h2>Hi John! Please enter your email address</h2>
+            <h2>Hi John! Please enter your Phone number</h2>
             <p>Used for login and recovery of your records</p>
         </div>
-        <form onSubmit={getOtp}>
+        <form >
   
-        {/* <div className={styles.or}>
-            <h1>Or</h1>
-        </div> */}
+    
         <Input 
         id = "number" 
         label= "Phone Number" 
@@ -62,10 +107,13 @@ const EmailVerification = (props) => {
         />
         <div id="recaptcha-container"></div>
          <div className={styles.button}>
-        <Button >Continue</Button>
+        <Button type = "submit" onClick={getOtp}>Request OTP</Button>
         </div>
         </form>
-
+        </div>
+        }
+        {flag &&
+        <div>
         <div>
             <div className= {styles.polygon}></div>
             <hr className= {styles.line}/>
@@ -74,30 +122,25 @@ const EmailVerification = (props) => {
             <h2>Hi John! Please enter your OTP</h2>
             <p>Used for login and recovery of your records</p>
         </div>
+   
         <form >
         <Input 
-        // ref = {otpInputRef}
         id = "otp" 
         label= "OTP" 
         type="number" 
         // isValid={emailIsValid} 
-        value =""
-        // onChange={emailChangeHandler}
+        value ={otp}
+        onChange={otpChangeHandler}
         // onBlur={validateEmailHandler}/>
         />
-        
-        
         <div className={styles.button}>
-        <Button>Request OTP</Button>
+        <Button type="submit" onClick ={verifyOtp}>Confirm OTP</Button>
         </div>
-
         </form>
-       
-    </Card>
-
-
-       
         
+        </div>
+}
+    </Card>    
     </div>
   );
 };
