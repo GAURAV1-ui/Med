@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
@@ -10,23 +10,29 @@ import { auth } from "../../firebase";
 
 const Password = (props) => {
   const navigate = useNavigate();
-  const [values, setValues] = useState({
-    email: "",
-    pass: "",
-  });
+  const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
+  const {state} = useLocation();
+  const number = state;
+  console.log(number);
+  const email = number+"@domain.com";
+  console.log(email);
+  const changePasswordHandler = (event) => {
+    event.preventDefault();
+    setPassword(event.target.value);
+  }
   const handleSubmission = (event) => {
     event.preventDefault();
-    console.log(values)
-    if (!values.email || !values.pass) {
+    
+    if (!email || !password) {
       setErrorMsg("Fill all fields");
       return;
     }
     setErrorMsg("");
 
     // setSubmitButtonDisabled(true);
-    createUserWithEmailAndPassword(auth, values.email, values.pass)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         // setSubmitButtonDisabled(false);
         const user = res.user;
@@ -52,24 +58,13 @@ const Password = (props) => {
             <h2>Create an E-mail and password for your account</h2>
         </div>
         <form onSubmit={handleSubmission}>
-        <Input 
-        id = "email" 
-        label= "Email" 
-        type="email" 
-        // isValid={emailIsValid} 
-        onChange={(event) =>
-          setValues((prev) => ({ ...prev, email: event.target.value }))
-        }
-        // onBlur={validateEmailHandler}/>
-        />
+    
         <Input 
         id = "password" 
         label= "Password" 
         type="password" 
         // isValid={emailIsValid} 
-        onChange={(event) =>
-          setValues((prev) => ({ ...prev, pass: event.target.value }))
-        }
+        onChange={changePasswordHandler}
         // onBlur={validateEmailHandler}/>
         />
         {errorMsg}

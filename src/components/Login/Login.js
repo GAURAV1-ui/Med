@@ -1,4 +1,4 @@
-import React,{useRef} from 'react'
+import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 // import Modal from '../UI/Modal'
 import Back from '../SignUp/Back';
@@ -7,12 +7,24 @@ import Card from '../UI/Card';
 import CheckBox from './CheckBox'
 import Button from '../UI/Button'
 import styles from './Login.module.css'
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 const Login = (props) => {
 
-    const phoneInputRef = useRef();
-    const passwordInputRef = useRef();
-    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+
     const navigate = useNavigate();
+
+    const changeNumberHandler = (event) => {
+        event.preventDefault();
+        setEmail(event.target.value);
+    }
+    const changePasswordHandler = (event) => {
+      event.preventDefault();
+      setPassword(event.target.value );
+  }
 
     const handleClickSignup =() => {
       navigate("/signup");
@@ -21,10 +33,29 @@ const Login = (props) => {
 
     const handleClickLogin = (event) => {
         event.preventDefault();
-        const phoneNumber = phoneInputRef.current.value;
-        const password = passwordInputRef.current.value;
-        console.log(phoneNumber);
-        navigate("/");
+        if (!email || !password) {
+          setErrorMsg("Fill all fields");
+          return;
+        }
+        setErrorMsg("");
+        const emails = email+"@domain.com"
+        console.log(emails);
+        // setSubmitButtonDisabled(true);
+        signInWithEmailAndPassword(auth, emails, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+            // setSubmitButtonDisabled(false);
+            alert("success");
+            navigate("/");
+          })
+          .catch((err) => {
+            // setSubmitButtonDisabled(false);
+            setErrorMsg(err.message);
+            console.log(err.message);
+            alert("fail");
+          });
+          
         // const enteredFirstName = 
     }
   return (
@@ -65,22 +96,24 @@ const Login = (props) => {
          <h1>MedInclude</h1>
         <h5>Simple. Understandable. Accessible</h5>
     </div>
-    <form onSubmit={handleClickLogin}>
+    <form >
     <Input 
-    ref = {phoneInputRef}
-    id = "phone" 
-    type="tel"  
+    id = "email" 
+    type="email"  
     required
+    value ={email}
+    onChange ={changeNumberHandler}
     // isValid={emailIsValid} 
     placeholder = "9693098513"
     // onChange={emailChangeHandler}
     // onBlur={validateEmailHandler}/>
     />
     <Input 
-    ref = {passwordInputRef}
     id = "password" 
     type="password" 
     placeholder = "•••••••••••"
+    value ={password}
+    onChange ={changePasswordHandler}
     required
     // isValid={emailIsValid} 
     // onChange={emailChangeHandler}

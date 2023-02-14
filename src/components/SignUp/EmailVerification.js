@@ -61,9 +61,9 @@ const EmailVerification = (props) => {
     window.confirmationResult.confirm(code).then((result) => {
   // User signed in successfully.
     const user = result.user;
-    console.log(user);
+    console.log(user.phoneNumber);
     alert("succes");
-    navigate("/password");
+    navigate("/password", {state:user.phoneNumber });
   // ...
 }).catch((error) => {
     alert("Invalid otp");  // User couldn't sign in (bad verification code?)
