@@ -38,7 +38,8 @@ const Login = (props) => {
           return;
         }
         setErrorMsg("");
-        const emails = email+"@domain.com"
+
+        const emails = "+91"+email+"@domain.com"
         console.log(emails);
         // setSubmitButtonDisabled(true);
         signInWithEmailAndPassword(auth, emails, password)
@@ -99,7 +100,7 @@ const Login = (props) => {
     <form >
     <Input 
     id = "email" 
-    type="email"  
+    type="number"  
     required
     value ={email}
     onChange ={changeNumberHandler}
@@ -121,7 +122,7 @@ const Login = (props) => {
     />
     <CheckBox/>
     <div className={styles.button}>
-    <Button type = "submit" onClick = {handleClickLogin}>Log In</Button>
+    <Button type = "submit" onClick ={handleClickLogin}>Log In</Button>
     </div>
     </form>
    
