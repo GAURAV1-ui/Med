@@ -10,10 +10,9 @@ import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth';
 
 const EmailVerification = (props) => {
 
-    const countryCode = "+91";
 
     const [error, setError] = useState("");
-    const [number, setNumber] = useState(countryCode);
+    const [number, setNumber] = useState("");
     const [otp, setOtp] = useState('');
     const [flag, setFlag] = useState(false);
 

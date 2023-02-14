@@ -14,6 +14,7 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    
 
     const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ const Login = (props) => {
         }
         setErrorMsg("");
 
-        const emails = "+91"+email+"@domain.com"
+        const emails = email+"@domain.com"
         console.log(emails);
         // setSubmitButtonDisabled(true);
         signInWithEmailAndPassword(auth, emails, password)
