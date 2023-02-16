@@ -53,7 +53,6 @@ const EmailVerification = (props) => {
             window.confirmationResult = confirmationResult;
             setFlag(true);
            }).catch((error) => {
-            alert("JAKNA")
             console.log(error);
             setFlag(false);
            })          

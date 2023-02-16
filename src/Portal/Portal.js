@@ -10,7 +10,7 @@ import { useUserAuth } from "../store/UserAuthContext";
 
 const Portal = () => {
   const navigate = useNavigate();
-  const {isLoggedIn} = useUserAuth();
+  const {isLoggedIn,user} = useUserAuth();
 
   const handleClickLogin =() => {
     navigate("/login");
@@ -22,6 +22,7 @@ const Portal = () => {
       <div className={styles.hero_image}>
         <div class={styles.hero_text}>
           <h1>Simple. Understandable. Accessible</h1>
+          <p>{user.phoneNumber}</p>
           <br/>
           <div className={styles.button}>
             <div className={styles.button1}>

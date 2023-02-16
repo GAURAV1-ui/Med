@@ -36,9 +36,7 @@ const Password = (props) => {
     } if (!passwordRegExp.test(password)){
       toast.error("Password is not Valid");
       return;
-    }
-
-      
+    }    
       try {        
         setLoading(true)
         await signUp( email, password)

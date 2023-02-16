@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
-import Navbar from './components/Menu/Navbar';
+// import Navbar from './components/Menu/Navbar';
 import Portal from './Portal/Portal';
 import Records from "./Records/Records";
 import Login from "./components/Login/Login";
@@ -10,11 +10,8 @@ import PhoneVerification from "./components/SignUp/PhoneVerification";
 import Password from "./components/SignUp/Password";
 import NewRecord from "./NewRecord/NewRecord";
 import { UserAuthContextProvider } from "./store/UserAuthContext"
-import { useUserAuth } from "./store/UserAuthContext";
 
 function App() {
-  const [isAuthenticated, setIsAuthentication] = useState(false);
-  // const { logIn} = useUserAuth();
 
 
   return (
