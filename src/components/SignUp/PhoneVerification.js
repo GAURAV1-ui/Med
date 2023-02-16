@@ -53,6 +53,7 @@ const EmailVerification = (props) => {
             window.confirmationResult = confirmationResult;
             setFlag(true);
            }).catch((error) => {
+            alert("JAKNA")
             console.log(error);
             setFlag(false);
            })          
@@ -62,6 +63,9 @@ const EmailVerification = (props) => {
 
     const verifyOtp = (event) => {
         event.preventDefault();
+    if(otp.length<6){
+        toast.error("Enter valid otp");
+    }
     if(otp.length === 6){
     const code = otp;
     window.confirmationResult.confirm(code).then((result) => {
@@ -70,8 +74,8 @@ const EmailVerification = (props) => {
     console.log(user.phoneNumber);
     toast.success("succes");
     navigate("/password", {state:user.phoneNumber });
-  // ...
 }).catch((error) => {
+    console.log(error.msg);
     toast.error("Invalid otp");  // User couldn't sign in (bad verification code?)
   // ...
 });
@@ -140,7 +144,7 @@ const EmailVerification = (props) => {
         onChange={otpChangeHandler}
         // onBlur={validateEmailHandler}/>
         />
-        
+        <ToastContainer/>
         <div className={styles.button}>
         <Button type="submit" onClick ={verifyOtp}>Confirm OTP</Button>
         </div>
