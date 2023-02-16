@@ -4,7 +4,7 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
 import Back from './Back';
-import styles from './EmailVerification.module.css';
+import styles from './PhoneVerification.module.css';
 import {auth} from '../../firebase'
 import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth';
 

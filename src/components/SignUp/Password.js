@@ -25,6 +25,7 @@ const Password = (props) => {
   const handleSubmission = (event) => {
     event.preventDefault();
     
+
     if (!email || !password) {
       setErrorMsg("Fill all fields");
       return;
@@ -63,6 +64,7 @@ const Password = (props) => {
         id = "password" 
         label= "Password" 
         type="password" 
+        required
         // isValid={emailIsValid} 
         onChange={changePasswordHandler}
         // onBlur={validateEmailHandler}/>
