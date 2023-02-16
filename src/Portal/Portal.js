@@ -10,7 +10,7 @@ import { useUserAuth } from "../store/UserAuthContext";
 
 const Portal = () => {
   const navigate = useNavigate();
-  const {logIn} = useUserAuth();
+  const {isLoggedIn} = useUserAuth();
 
   const handleClickLogin =() => {
     navigate("/login");
@@ -27,7 +27,7 @@ const Portal = () => {
             <div className={styles.button1}>
           <Button>Get Started</Button>
           </div>
-         {!logIn && <div className={styles.button2} onClick ={handleClickLogin}>
+         {!isLoggedIn && <div className={styles.button2} onClick ={handleClickLogin}>
           <Button >Log In</Button>
           </div>} 
           </div>

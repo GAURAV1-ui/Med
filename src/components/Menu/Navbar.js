@@ -8,7 +8,7 @@ import { useUserAuth } from "../../store/UserAuthContext";
 
 const Navbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {logIn,logOut} = useUserAuth();
+  const {logIn,logOut,isLoggedIn} = useUserAuth();
   const navigate = useNavigate();
   const userLogout = async() =>{
     
@@ -29,10 +29,10 @@ const Navbar = (props) => {
       
       <div className={`nav-items ${isOpen && "open"}`}>
         <NavLink to="/" activeClassName = "">Portal</NavLink>
-        {logIn&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
-        <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>
+        {isLoggedIn&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
+        {isLoggedIn&&<NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
         {/* <Button onClick = {props.onShowLogin}>Login</Button> */}
-        {logIn&&<button onClick={userLogout}>logout</button>}
+        {isLoggedIn&&<button onClick={userLogout}>logout</button>}
       </div>
       
       <div

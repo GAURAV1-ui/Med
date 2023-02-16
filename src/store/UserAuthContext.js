@@ -18,10 +18,10 @@ export function UserAuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
   function signUp(email, password) {
-    setIsLoggedIn(false);
     return createUserWithEmailAndPassword(auth, email, password);
   }
   function logOut() {
+    setIsLoggedIn(false);
     return signOut(auth);
   }
 
