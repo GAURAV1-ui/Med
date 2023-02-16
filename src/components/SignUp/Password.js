@@ -5,13 +5,17 @@ import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
 import Back from './Back';
 import styles from './Password.module.css';
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../firebase";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useUserAuth} from "../../store/UserAuthContext"
+
 
 const Password = (props) => {
+
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false)
+  const {signUp} = useUserAuth();
 
   const {state} = useLocation();
   const number = state;
@@ -19,32 +23,33 @@ const Password = (props) => {
   const email = number+"@domain.com";
   console.log(email);
   const changePasswordHandler = (event) => {
-    event.preventDefault();
-    setPassword(event.target.value);
+  const passwordInputValue = event.target.value.trim();
+  setPassword(passwordInputValue);
   }
-  const handleSubmission = (event) => {
-    event.preventDefault();
-    
 
-    if (!email || !password) {
-      setErrorMsg("Fill all fields");
+    const handleSubmission = async(event) => {
+    event.preventDefault();
+    let passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/; 
+    if (password === "") {
+      toast.error("Please enter password");
+      return;
+    } if (!passwordRegExp.test(password)){
+      toast.error("Password is not Valid");
       return;
     }
-    setErrorMsg("");
 
-    // setSubmitButtonDisabled(true);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (res) => {
+      
+      try {        
+        setLoading(true)
+        await signUp( email, password)
+        toast.success("Success");
+        navigate("/")
+      }
+      catch{
         // setSubmitButtonDisabled(false);
-        const user = res.user;
-        console.log(user);
-
-        navigate("/");
-      })
-      .catch((err) => {
-        // setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
-      });
+        toast.error("Not Successfull");
+    }
+    setLoading(false)
   };
 
   return (
@@ -69,7 +74,7 @@ const Password = (props) => {
         onChange={changePasswordHandler}
         // onBlur={validateEmailHandler}/>
         />
-        {errorMsg}
+        <ToastContainer/>
          <div className={styles.instruction}>
         <p>Your password must contains:</p>
         <div className={styles.instruction_details}>
@@ -80,7 +85,7 @@ const Password = (props) => {
         </div>
         </div>
         <div className={styles.button}>
-        <Button type="submit">Continue</Button>
+        <Button disabled={loading} type="submit">Continue</Button>
         </div>
         </form>
        

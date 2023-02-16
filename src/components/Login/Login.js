@@ -7,14 +7,14 @@ import Card from '../UI/Card';
 import CheckBox from './CheckBox'
 import Button from '../UI/Button'
 import styles from './Login.module.css'
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useUserAuth } from "../../store/UserAuthContext";
 const Login = (props) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMsg, setErrorMsg] = useState("");
-    
+    const { logIn } = useUserAuth();
 
     const navigate = useNavigate();
 
@@ -32,31 +32,34 @@ const Login = (props) => {
     } 
 
 
-    const handleClickLogin = (event) => {
+    const handleClickLogin = async(event) => {
         event.preventDefault();
-        if (!email || !password) {
-          setErrorMsg("Fill all fields");
+
+        if (password === "" ||email === "") {
+          toast.error("Please enter number and password");
           return;
         }
-        setErrorMsg("");
+        if (email.length<10 || password.length<8){
+          toast.error("Please valid number and password");
+          return;
+        }
 
         const emails = "+91"+email+"@domain.com"
         console.log(emails);
         // setSubmitButtonDisabled(true);
-        signInWithEmailAndPassword(auth, emails, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
+        try{
+          await logIn(emails, password);
+          // setSubmitButtonDisabled(false);
+          // alert("success");
+          toast.success("Successfull");
+          navigate("/");
+        }
+  
+          catch {
             // setSubmitButtonDisabled(false);
-            alert("success");
-            navigate("/");
-          })
-          .catch((err) => {
-            // setSubmitButtonDisabled(false);
-            setErrorMsg(err.message);
-            console.log(err.message);
-            alert("fail");
-          });
+            console.log();
+            toast.error("Please enter valid number and password");
+          };
           
         // const enteredFirstName = 
     }
@@ -110,6 +113,7 @@ const Login = (props) => {
     // onChange={emailChangeHandler}
     // onBlur={validateEmailHandler}/>
     />
+    <ToastContainer/>
     <Input 
     id = "password" 
     type="password" 
@@ -121,6 +125,7 @@ const Login = (props) => {
     // onChange={emailChangeHandler}
     // onBlur={validateEmailHandler}/>
     />
+
     <CheckBox/>
     <div className={styles.button}>
     <Button type = "submit" onClick ={handleClickLogin}>Log In</Button>

@@ -1,9 +1,27 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 // import Button from '../UI/Button';
 import "./Navbar.css";
+
+import { useUserAuth } from "../../store/UserAuthContext";
+
 const Navbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const {logIn,logOut} = useUserAuth();
+  const navigate = useNavigate();
+  const userLogout = async() =>{
+    
+    try {
+      await logOut()
+      navigate("/login")
+    } catch {
+      // setError("Failed to log out")
+      alert("error");
+    }
+  }
+  
+ 
  
   return (
     <div className="Navbar">
@@ -11,16 +29,19 @@ const Navbar = (props) => {
       
       <div className={`nav-items ${isOpen && "open"}`}>
         <NavLink to="/" activeClassName = "">Portal</NavLink>
-        <NavLink to="/records" activeClassName = "">Record</NavLink>
+        {logIn&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
         <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>
         {/* <Button onClick = {props.onShowLogin}>Login</Button> */}
+        {logIn&&<button onClick={userLogout}>logout</button>}
       </div>
+      
       <div
         className={`nav-toggle ${isOpen && "open"}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="bar"></div>
       </div>
+      
     </div>
   );
 };

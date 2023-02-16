@@ -7,6 +7,8 @@ import Back from './Back';
 import styles from './PhoneVerification.module.css';
 import {auth} from '../../firebase'
 import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EmailVerification = (props) => {
 
@@ -38,6 +40,9 @@ const EmailVerification = (props) => {
 
     const getOtp =(event) => {
         event.preventDefault();
+        if(number.length<12){
+            toast.error("Enter valid number");
+        }
         if(number.length >= 12){
             
            generateRecaptcha();
@@ -52,6 +57,7 @@ const EmailVerification = (props) => {
             setFlag(false);
            })          
         }
+       
     }
 
     const verifyOtp = (event) => {
@@ -62,11 +68,11 @@ const EmailVerification = (props) => {
   // User signed in successfully.
     const user = result.user;
     console.log(user.phoneNumber);
-    alert("succes");
+    toast.success("succes");
     navigate("/password", {state:user.phoneNumber });
   // ...
 }).catch((error) => {
-    alert("Invalid otp");  // User couldn't sign in (bad verification code?)
+    toast.error("Invalid otp");  // User couldn't sign in (bad verification code?)
   // ...
 });
 }
@@ -105,6 +111,7 @@ const EmailVerification = (props) => {
         // onBlur={validateEmailHandler}/>
         
         />
+        <ToastContainer/>
         <div id="recaptcha-container"></div>
          <div className={styles.button}>
         <Button type = "submit" onClick={getOtp}>Request OTP</Button>
@@ -133,6 +140,7 @@ const EmailVerification = (props) => {
         onChange={otpChangeHandler}
         // onBlur={validateEmailHandler}/>
         />
+        
         <div className={styles.button}>
         <Button type="submit" onClick ={verifyOtp}>Confirm OTP</Button>
         </div>

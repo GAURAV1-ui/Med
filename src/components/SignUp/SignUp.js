@@ -1,10 +1,12 @@
 import React,{useState} from 'react'
-import { json, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
 import Back from './Back';
 import styles from './SignUp.module.css';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = (props) => {
 
@@ -21,13 +23,22 @@ const SignUp = (props) => {
   }
     const handleClickSignup =(event) => {
       event.preventDefault();
+      if(firstName === "" || lastName=== ""){
+        toast.error("Name is empty");
+        return;
+      }
+
+      if(firstName.length<3 || lastName.length<3){
+        toast.error("Name is not valid");
+        return
+      }
       const names = {
         firstName: firstName,
         lastName: lastName
       }   
       console.log(names);
       localStorage.setItem("names", JSON.stringify(names));
-      navigate("/emailverification");
+      navigate("/phoneverification");
     } 
 
   return (
@@ -43,7 +54,7 @@ const SignUp = (props) => {
         </div>
         <form>
         <Input 
-        id = "fisrtName" 
+        id = "firstName" 
         label= "First Name" 
         type="text" 
         placeholder= "John"
@@ -63,6 +74,7 @@ const SignUp = (props) => {
         onChange={lastNameChangeHandler}
         // onBlur={validateEmailHandler}/>
         />
+        <ToastContainer/>
         <div className={styles.button}>
         <Button type = "submit" onClick = {handleClickSignup}>Continue</Button>
         </div>

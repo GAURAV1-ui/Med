@@ -4,10 +4,13 @@ import TextContainer from '../components/TextContainer/TextContainer';
 import styles from './Portal.module.css';
 import Button from '../components/UI/Button';
 import Navbar from '../components/Menu/Navbar';
+
+import { useUserAuth } from "../store/UserAuthContext";
 // import MainImage from '../Images/Project_69-08.jpg'
 
 const Portal = () => {
   const navigate = useNavigate();
+  const {logIn} = useUserAuth();
 
   const handleClickLogin =() => {
     navigate("/login");
@@ -24,9 +27,9 @@ const Portal = () => {
             <div className={styles.button1}>
           <Button>Get Started</Button>
           </div>
-          <div className={styles.button2} onClick ={handleClickLogin}>
+         {!logIn && <div className={styles.button2} onClick ={handleClickLogin}>
           <Button >Log In</Button>
-          </div>
+          </div>} 
           </div>
       </div>
       
