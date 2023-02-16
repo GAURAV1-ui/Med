@@ -55,6 +55,11 @@
 	padding: 5px 15px;
 	border-radius: 20px;
   }
+	.nav-items button:hover,
+	button:active {
+  	background: #055244;
+  	color: white;
+}
   
   @media (max-width: 700px) {
 	

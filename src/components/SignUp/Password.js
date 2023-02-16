@@ -43,7 +43,7 @@ const Password = (props) => {
         setLoading(true)
         await signUp( email, password)
         toast.success("Success");
-        navigate("/")
+        navigate("login")
       }
       catch{
         // setSubmitButtonDisabled(false);
