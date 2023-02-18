@@ -13,6 +13,8 @@ const NewRecord = () => {
       setUserInput(event.target.value);
       console.log(userInput);
     }
+            
+
   useEffect(() =>{
     axios.get("https://ymyfish.com/api")
     .then((res) =>{
@@ -21,6 +23,21 @@ const NewRecord = () => {
       console.log(err);
     })
     },[]);
+
+  // const makeAPICall = async () => {
+  //   try {
+  //   const response = await fetch('http:ymyfish.com/api', {mode:'cors'});
+  //   const data = await response.json();
+  //   console.log({ data })
+  //       }
+  //   catch (e) {
+  //   console.log(e)
+  //       }
+  //     }
+  //     useEffect(() => {
+  //       makeAPICall();
+  //     }, [])
+  
 
     const onSubmitHandler =(event) => {
       console.log("erre");
@@ -31,7 +48,7 @@ const NewRecord = () => {
       }).catch((err) => {
         console.log(err);
       });
-    };
+    }
     
   
   return (

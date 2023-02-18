@@ -10,9 +10,13 @@ import PhoneVerification from "./components/SignUp/PhoneVerification";
 import Password from "./components/SignUp/Password";
 import NewRecord from "./NewRecord/NewRecord";
 import { UserAuthContextProvider } from "./store/UserAuthContext"
- 
-function App() {
 
+
+function App() {
+  app.get('/cors', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send({ "msg": "This has CORS enabled 🎈" })
+})
   return (
     <main>      
       <Router>
