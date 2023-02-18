@@ -10,9 +10,8 @@ import PhoneVerification from "./components/SignUp/PhoneVerification";
 import Password from "./components/SignUp/Password";
 import NewRecord from "./NewRecord/NewRecord";
 import { UserAuthContextProvider } from "./store/UserAuthContext"
-
+ 
 function App() {
-
 
   return (
     <main>      

@@ -1,13 +1,39 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 
 import Back from '../components/SignUp/Back';
 import styles from './NewRecord.module.css'
 import Dates from '../components/Date/Date';
 import Button from '../components/UI/Button';
+import axios from "axios";
 
 const NewRecord = () => {
+    const[userInput, setUserInput]=useState("");
 
+    const userInputChangeHandler = (event) =>{
+      setUserInput(event.target.value);
+      console.log(userInput);
+    }
+  useEffect(() =>{
+    axios.get("https://ymyfish.com/api")
+    .then((res) =>{
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    })
+    },[]);
+
+    const onSubmitHandler =(event) => {
+      console.log("erre");
+      axios.post("https://ymyfish.com/api/transcribe",
+        userInput
+        ).then((res) =>{
+          console.log(res);
+      }).catch((err) => {
+        console.log(err);
+      });
+    };
     
+  
   return (
     <div>
         <Back/>
@@ -17,9 +43,11 @@ const NewRecord = () => {
         </div>
             <Dates/>
         </div> 
-        <textarea name='userInput' placeholder = "Enter or paste your records here"/>
+        <textarea name='userInput' placeholder = "Enter or paste your records here" 
+        value={userInput} 
+        onChange={userInputChangeHandler}/>
         <div className={styles.button}>
-        <Button>Upload</Button>
+        <Button onClick ={onSubmitHandler}>Upload</Button>
         </div>
         <textarea name ='transcribed_data' placeholder='Your transcribed record shows up here'/>
         <div className={`${styles.button} ${styles.button1}`}>

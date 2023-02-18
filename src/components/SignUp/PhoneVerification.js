@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -6,6 +6,7 @@ import Input from '../UI/Input/Input';
 import Back from './Back';
 import styles from './PhoneVerification.module.css';
 import {auth} from '../../firebase'
+import { onAuthStateChanged } from 'firebase/auth';
 import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,12 +15,23 @@ const EmailVerification = (props) => {
 
     const countryCode = "+91";
 
-    const [error, setError] = useState("");
+    const[user,setUser] = useState();
     const [number, setNumber] = useState(countryCode);
     const [otp, setOtp] = useState('');
     const [flag, setFlag] = useState(false);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+          console.log("Auth", currentuser);
+          setUser(currentuser);
+        });
+    
+        return () => {
+          unsubscribe();
+        };
+      }, []);
 
     const numberChangeHandler = (e) => {
         setNumber(e.target.value);
@@ -68,15 +80,13 @@ const EmailVerification = (props) => {
     if(otp.length === 6){
     const code = otp;
     window.confirmationResult.confirm(code).then((result) => {
-  // User signed in successfully.
     const user = result.user;
     console.log(user.phoneNumber);
     toast.success("succes");
     navigate("/password", {state:user.phoneNumber });
 }).catch((error) => {
     console.log(error.msg);
-    toast.error("Invalid otp");  // User couldn't sign in (bad verification code?)
-  // ...
+    toast.error("Invalid otp"); 
 });
 }
     }
@@ -95,6 +105,7 @@ const EmailVerification = (props) => {
         </div>
 
         <div className={styles.heading}>
+            <p>{user.email}</p>
             <h2>Hi John! Please enter your Phone number</h2>
             <p>Used for login and recovery of your records</p>
         </div>
