@@ -12,7 +12,7 @@ const data = [
     {
         id: 3,
         language:"English",
-        code: "hi"
+        code: "en"
     },
     {
         id: 4,

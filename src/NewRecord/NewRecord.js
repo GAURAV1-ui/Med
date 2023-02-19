@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-
+import { useNavigate } from 'react-router-dom';
 import Back from '../components/SignUp/Back';
 import styles from './NewRecord.module.css'
 import Dates from '../components/Date/Date';
@@ -9,12 +9,14 @@ import data from './data';
 import axios from "axios";
 const qs = require('qs')
 
-const NewRecord = () => {
+const NewRecord = (props) => {
     const[userInput, setUserInput]=useState("");
     const[userTranscribedInput,setUserTranscribedInput] = useState("");
     const[userTranslateInput,setUserTranslateInput] = useState("");
-    const[inputDestinationLanguage, setInputDestinationLanguage] = useState("");
-    const[inputSourceLanguage, setInputSourceLanguage] = useState("");
+    const[inputDestinationLanguage, setInputDestinationLanguage] = useState();
+    const[inputSourceLanguage, setInputSourceLanguage] = useState("en");
+
+    const navigate = useNavigate();
 
     const userInputChangeHandler = (event) =>{
       setUserInput(event.target.value);
@@ -38,20 +40,6 @@ const NewRecord = () => {
     })
     },[]);
 
-  // const makeAPICall = async () => {
-  //   try {
-  //   const response = await fetch('http:ymyfish.com/api', {mode:'cors'});
-  //   const data = await response.json();
-  //   console.log({ data })
-  //       }
-  //   catch (e) {
-  //   console.log(e)
-  //       }
-  //     }
-  //     useEffect(() => {
-  //       makeAPICall();
-  //     }, [])
-  
 
     const onSubmitHandler =  (event) => {
       event.preventDefault();
@@ -80,7 +68,7 @@ const NewRecord = () => {
           method: 'post',
           url: 'https://ymyfish.com/api/translate',
           data: qs.stringify({
-            text: userTranslateInput,
+            text: userTranscribedInput,
             sourceLanguage: inputSourceLanguage,
             targetLanguage: inputDestinationLanguage
           }),
@@ -90,7 +78,9 @@ const NewRecord = () => {
         }).then((res) => {
           // const result = res;
           setUserTranslateInput(res);
+          props.onTranslate(userTranslateInput);
           console.log("Translate Response", res);
+          navigate("/");
         }).catch((err) => {
           console.log(err);
         })
@@ -130,7 +120,9 @@ const NewRecord = () => {
          id="sourcelanguage"
          value = {inputSourceLanguage}
          onChange = {onSubmitSourceLanguageHandler}>
-        <option value="en">English</option>
+         {data.map((data)=>(
+              <option value={data.code}>{data.language}</option>
+          ))}
         </select>
         </div>
         <div>
@@ -156,7 +148,7 @@ const NewRecord = () => {
         <div className={`${styles.button} ${styles.button1}`}>
         <Button onClick ={onSubmitTranscribedHandler}>Translate</Button>
         </div>
-        <p>{userTranslateInput}</p>
+        {/* <p>{userTranslateInput}</p> */}
     </div>
   )
 }

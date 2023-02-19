@@ -8,7 +8,7 @@ import Navbar from '../components/Menu/Navbar';
 import { useUserAuth } from "../store/UserAuthContext";
 // import MainImage from '../Images/Project_69-08.jpg'
 
-const Portal = () => {
+const Portal = (props) => {
   const navigate = useNavigate();
   const {isLoggedIn,user} = useUserAuth();
 
@@ -18,11 +18,12 @@ const Portal = () => {
   return (
     <div>
     <Navbar />
+    <p>{props.data}</p>
     <div className={styles.hero}>
       <div className={styles.hero_image}>
         <div class={styles.hero_text}>
           <h1>Simple. Understandable. Accessible</h1>
-          <p>{user.phoneNumber}</p>
+          
           <br/>
           <div className={styles.button}>
             <div className={styles.button1}>

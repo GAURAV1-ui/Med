@@ -5,13 +5,13 @@ import Navbar from '../components/Menu/Navbar'
 
 import { useUserAuth } from "../store/UserAuthContext";
 
-const Records = () => {
+const Records = (props) => {
   const {isLoggedIn} = useUserAuth();
   return (
     <>
         <Navbar/>
         <div className={styles.record}>
-            <h1>Record</h1>
+            <h1>{props.data}</h1>
         </div>
         {isLoggedIn&&<TextContainer/>}
         
