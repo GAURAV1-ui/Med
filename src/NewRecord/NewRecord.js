@@ -39,16 +39,24 @@ const NewRecord = () => {
   //     }, [])
   
 
-    const onSubmitHandler =(event) => {
-      
-      axios.post("https://ymyfish.com/api/transcribe",
-        userInput
-        ).then((res) =>{
-          console.log("erre");
-          console.log(res);
-      }).catch((err) => {
+    const onSubmitHandler = async (event) => {
+      let transcribe_data = new FormData()
+      transcribe_data.append('prompt',userInput);
+      try{
+        let response = axios.post("https://ymyfish.com/api/transcribe",transcribe_data)
+        console.log(response);
+        
+      }
+      catch(err){
         console.log(err);
-      });
+      }
+      // axios.post("https://ymyfish.com/api/transcribe",
+      //   userInput
+      //   ).then((res) =>{
+      //     console.log(res);
+      // }).catch((err) => {
+      //   console.log(err);
+      // });
     }
     
   
