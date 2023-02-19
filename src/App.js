@@ -13,10 +13,7 @@ import { UserAuthContextProvider } from "./store/UserAuthContext"
 
 
 function App() {
-  app.get('/cors', (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    res.send({ "msg": "This has CORS enabled 🎈" })
-})
+
   return (
     <main>      
       <Router>

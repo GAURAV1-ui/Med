@@ -40,10 +40,11 @@ const NewRecord = () => {
   
 
     const onSubmitHandler =(event) => {
-      console.log("erre");
+      
       axios.post("https://ymyfish.com/api/transcribe",
         userInput
         ).then((res) =>{
+          console.log("erre");
           console.log(res);
       }).catch((err) => {
         console.log(err);
