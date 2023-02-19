@@ -5,6 +5,7 @@ import styles from './NewRecord.module.css'
 import Dates from '../components/Date/Date';
 import Button from '../components/UI/Button';
 import axios from "axios";
+const qs = require('qs')
 
 const NewRecord = () => {
     const[userInput, setUserInput]=useState("");
@@ -39,17 +40,23 @@ const NewRecord = () => {
   //     }, [])
   
 
-    const onSubmitHandler = async (event) => {
-      let transcribe_data = new FormData()
-      transcribe_data.append('prompt',userInput);
-      try{
-        let response = axios.post("https://ymyfish.com/api/transcribe",transcribe_data)
-        console.log(response);
-        
-      }
-      catch(err){
+    const onSubmitHandler =  (event) => {
+      event.preventDefault();
+
+      axios({
+        method: 'post',
+        url: 'https://ymyfish.com/api/transcribe',
+        data: qs.stringify({
+          prompt: userInput,
+        }),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+        }
+      }).then((res) => {
+        console.log("Transcribe Response", res);
+      }).catch((err) => {
         console.log(err);
-      }
+      })
       // axios.post("https://ymyfish.com/api/transcribe",
       //   userInput
       //   ).then((res) =>{
@@ -74,7 +81,7 @@ const NewRecord = () => {
         onChange={userInputChangeHandler}/>
         <div className={styles.button}>
         <Button onClick ={onSubmitHandler}>Upload</Button>
-        </div>
+        </div> 
         <textarea name ='transcribed_data' placeholder='Your transcribed record shows up here'/>
         <div className={`${styles.button} ${styles.button1}`}>
         <Button>Save</Button>
