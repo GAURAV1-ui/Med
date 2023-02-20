@@ -62,8 +62,7 @@ const NewRecord = (props) => {
       })
     }
 
-    const onSubmitTranscribedHandler =(event) => {
-        event.preventDefault();
+    const onSubmitTranscribedHandler = () => {
         axios({
           method: 'post',
           url: 'https://ymyfish.com/api/translate',
@@ -77,22 +76,15 @@ const NewRecord = (props) => {
           }
         }).then((res) => {
           // const result = res;
-          setUserTranslateInput(res);
-          props.onTranslate(userTranslateInput);
+          setUserTranslateInput(res.data);
+          console.log(userTranslateInput);
           console.log("Translate Response", res);
-          navigate("/");
+          // navigate("/records");
         }).catch((err) => {
           console.log(err);
         })
+        props.onTranslate(userTranslateInput);
       }
-
-      // axios.post("https://ymyfish.com/api/transcribe",
-      //   userInput
-      //   ).then((res) =>{
-      //     console.log(res);
-      // }).catch((err) => {
-      //   console.log(err);
-      // });
 
   return (
     <div>
@@ -143,7 +135,6 @@ const NewRecord = (props) => {
         name ='transcribed_data' 
         placeholder='Your transcribed record shows up here' 
         value = {userTranscribedInput}
-
          />
         <div className={`${styles.button} ${styles.button1}`}>
         <Button onClick ={onSubmitTranscribedHandler}>Translate</Button>
