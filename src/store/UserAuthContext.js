@@ -12,6 +12,8 @@ const userAuthContext = createContext();
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const[userTranslateInput,setUserTranslateInput] = useState("");
+
 
   function logIn(email, password) {
     setIsLoggedIn(true);
@@ -39,7 +41,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user,isLoggedIn, logIn, signUp, logOut }}
+      value={{ user,isLoggedIn, logIn, signUp, logOut,userTranslateInput,setUserTranslateInput }}
     >
       {children}
     </userAuthContext.Provider>

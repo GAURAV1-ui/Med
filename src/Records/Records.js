@@ -6,13 +6,14 @@ import Navbar from '../components/Menu/Navbar'
 import { useUserAuth } from "../store/UserAuthContext";
 
 const Records = (props) => {
-  console.log(props.data);
-  const {isLoggedIn} = useUserAuth();
+  const {isLoggedIn,userTranslateInput} = useUserAuth();
+  console.log("Translate Api CheCKIG",userTranslateInput );
+
   return (
     <>
         <Navbar/>
         <div className={styles.record}>
-            <h1></h1>
+            <h1>{userTranslateInput}</h1>
         </div>
         {isLoggedIn&&<TextContainer/>}
         
