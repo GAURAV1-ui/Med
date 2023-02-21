@@ -17,7 +17,8 @@ const TextContainer1 = () => {
         getUsers();
       }, []);
 
-
+      const latest = users[users.length-1];
+      console.log(users);
   return (
     <>
           <Card1>
@@ -25,11 +26,11 @@ const TextContainer1 = () => {
               <div>
                 <h3>Test Result</h3>
               </div>
-            {users[0].day}
+            {/* {users.day} */}
           </div>
           <br/>
           <section>
-              <p>{users[0].translatedData}</p>
+              {/* <p>{users[0].translatedData}</p> */}
           </section>
           </Card1>
         </>
