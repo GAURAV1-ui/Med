@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import TextContainer from '../components/TextContainer/TextContainer';
+import TextContainer1 from '../components/TextContainer/TextContainer1';
 import styles from './Portal.module.css';
 import Button from '../components/UI/Button';
 import Navbar from '../components/Menu/Navbar';
@@ -35,15 +35,14 @@ const Portal = (props) => {
           {!currentUser &&<Button >Sign In</Button>}
           </div>
           </div>
-      </div>
-      
+      </div>   
     </div>
     <div className={styles.records}>
     <div className={styles.portal}>
         <h1>Record</h1>
     </div>
     <div className={styles.textContainer}>
-        <TextContainer/>
+        <TextContainer1/>
     </div>
     </div>    
     </div>

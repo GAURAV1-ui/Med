@@ -3,8 +3,8 @@ import Card1 from '../UI/Card1';
 import Date from '../Date/Date';
 import {db} from '../../firebase';
 import {collection,getDocs} from 'firebase/firestore'
-import classes from './TextContainer1.module.css'
-const TextContainer1 = () => {
+import classes from './TextContainer2.module.css'
+const TextContainer2 = () => {
     const [users, setUsers] = useState([]);
     const usersCollectionRef = collection(db, "Users");
     useEffect(() => {
@@ -20,21 +20,26 @@ const TextContainer1 = () => {
 
   return (
     <>
+
+        {users.map((data) => {
+          return(
           <Card1>
             <div className={classes.container}>
               <div>
                 <h3>Test Result</h3>
               </div>
-            {users[0].day}
+            {data.day}
           </div>
           <br/>
           <section>
-              <p>{users[0].translatedData}</p>
+              <p>{data.translatedData}</p>
           </section>
           </Card1>
+          )}
+          )}
         </>
 
   )
 }
 
-export default TextContainer1;
+export default TextContainer2;

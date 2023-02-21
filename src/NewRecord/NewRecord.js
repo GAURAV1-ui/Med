@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import {collection,addDoc,updateDoc} from "firebase/firestore";
+import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/SignUp/Back';
 import styles from './NewRecord.module.css'
@@ -8,7 +10,9 @@ import data from './data';
 import axios from "axios";
 import { useUserAuth } from '../store/UserAuthContext';
 import TextContainer from '../components/TextContainer/TextContainer';
+import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
+
 
 const NewRecord = (props) => {
   const [userInput, setUserInput] = useState("");
@@ -18,6 +22,7 @@ const NewRecord = (props) => {
   const {userTranslateInput,setUserTranslateInput} = useUserAuth();
 
   const navigate = useNavigate();
+  const usersCollectionRef = collection(db, "Users");
 
   const userInputChangeHandler = (event) => {
     setUserInput(event.target.value);
@@ -89,24 +94,8 @@ const NewRecord = (props) => {
 
   const onSubmitTranslateHandler = async (event) => {
     event.preventDefault();
-    const res = fetch ("https://medinclude-8a7fa-default-rtdb.firebaseio.com/usertranslateData.json",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body:JSON.stringify({
-        date:day,
-        translated_data: userTranslateInput,
-      })
-    }
-    );
-    if(res) {
-      alert(res);
-      console.log(res);
-    } else {
-      alert("Pldkljs");
-    }
+    await addDoc(usersCollectionRef, { day: day, translatedData:userTranslateInput });
+    navigate("/records");
   };
 
   return (
@@ -169,7 +158,6 @@ const NewRecord = (props) => {
       </div>
       </div>
 }
-  
     </div>
   )
 }

@@ -22,17 +22,17 @@ const Navbar = () => {
     //     navigate("/login");
     //   }
     // };
-    useEffect(() => {
-      if (currentUser) {
-        const starCountRef = ref(db, "users/" + currentUser.uid);
-        onValue(starCountRef, (snapshot) => {
-          if (snapshot.exists()) {
-            var data = snapshot.val();
-            setUsername(data.firstName + " " + data.lastName);
-          }
-        });
-      }
-    }, [currentUser]);
+    // useEffect(() => {
+    //   if (currentUser) {
+    //     const starCountRef = ref(db, "users/" + currentUser.uid);
+    //     onValue(starCountRef, (snapshot) => {
+    //       if (snapshot.exists()) {
+    //         var data = snapshot.val();
+    //         setUsername(data.firstName + " " + data.lastName);
+    //       }
+    //     });
+    //   }
+    // }, [currentUser]);
   
     const clickLogin = () => {
       if (currentUser) {
