@@ -14,12 +14,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const EmailVerification = (props) => {
 
     const countryCode = "+91";
-
+    
     const[user,setUser] = useState();
     const [number, setNumber] = useState(countryCode);
     const [otp, setOtp] = useState('');
     const [flag, setFlag] = useState(false);
 
+    const items = JSON.parse(localStorage.getItem('User'));
+    console.log(items);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -82,8 +84,8 @@ const EmailVerification = (props) => {
     window.confirmationResult.confirm(code).then((result) => {
     const user = result.user;
     console.log(user.phoneNumber);
-    toast.success("succes");
-    navigate("/password", {state:user.phoneNumber });
+    toast.success("Success");
+    navigate("/password", {state: user.phoneNumber });
 }).catch((error) => {
     console.log(error.msg);
     toast.error("Invalid otp"); 
@@ -105,8 +107,8 @@ const EmailVerification = (props) => {
         </div>
 
         <div className={styles.heading}>
-            <p>{user.email}</p>
-            <h2>Hi John! Please enter your Phone number</h2>
+            
+            <h2>Hi {items.firstName}! Please enter your Phone number</h2>
             <p>Used for login and recovery of your records</p>
         </div>
         <form >
@@ -140,7 +142,7 @@ const EmailVerification = (props) => {
             <hr className= {styles.line}/>
         </div>
         <div className={styles.heading}>
-            <h2>Hi John! Please enter your OTP</h2>
+            <h2>Hi {items.firstName}! Please enter your OTP</h2>
             <p>Used for login and recovery of your records</p>
         </div>
    

@@ -7,16 +7,18 @@ import Back from './Back';
 import styles from './Password.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useUserAuth} from "../../store/UserAuthContext"
-
+// import {useUserAuth} from "../../store/UserAuthContext"
+import { auth, db } from "../../firebase";
+import { ref, set } from "firebase/database";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Password = (props) => {
 
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false)
-  const {signUp} = useUserAuth();
 
+  const items = JSON.parse(localStorage.getItem('User'));
+  console.log(items);
   const {state} = useLocation();
   const number = state;
   console.log(number);
@@ -36,18 +38,20 @@ const Password = (props) => {
     } if (!passwordRegExp.test(password)){
       toast.error("Password is not Valid");
       return;
-    }    
-      try {        
-        setLoading(true)
-        await signUp( email, password)
-        toast.success("Success");
-        navigate("login")
-      }
-      catch{
-        // setSubmitButtonDisabled(false);
-        toast.error("Not Successfull");
+    }   
+    function onRegister() {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          set(ref(db, "users/" + userCredential.user.uid), {
+            firstName: items.firstName,
+            lastName: items.lastName,
+            email: email,
+          });
+        })
+        .catch((error) => console.log(error));
+      navigate("/");
     }
-    setLoading(false)
+    onRegister();
   };
 
   return (
@@ -62,15 +66,12 @@ const Password = (props) => {
             <h2>Create an E-mail and password for your account</h2>
         </div>
         <form onSubmit={handleSubmission}>
-    
         <Input 
         id = "password" 
         label= "Password" 
         type="password" 
         required
-        // isValid={emailIsValid} 
         onChange={changePasswordHandler}
-        // onBlur={validateEmailHandler}/>
         />
         <ToastContainer/>
          <div className={styles.instruction}>
@@ -83,11 +84,10 @@ const Password = (props) => {
         </div>
         </div>
         <div className={styles.button}>
-        <Button disabled={loading} type="submit">Continue</Button>
+        <Button 
+        type="submit">Continue</Button>
         </div>
-        </form>
-       
-        
+        </form> 
     </Card>
     </div>
   );

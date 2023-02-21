@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -7,12 +7,11 @@ import Back from './Back';
 import styles from './SignUp.module.css';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useUserAuth} from "../../store/UserAuthContext"
 
-const SignUp = (props) => {
+const SignUp = () => {
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-
+  const {firstName,setFirstName,lastName,setLastName} = useUserAuth();
     const navigate = useNavigate();
 
     const firstNameChangeHandler = (e) => {
@@ -35,9 +34,10 @@ const SignUp = (props) => {
       const names = {
         firstName: firstName,
         lastName: lastName
-      }   
+      } 
+       
+      localStorage.setItem("User",JSON.stringify(names));
       console.log(names);
-      localStorage.setItem("names", JSON.stringify(names));
       navigate("/phoneverification");
     } 
 

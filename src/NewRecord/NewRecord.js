@@ -5,18 +5,17 @@ import styles from './NewRecord.module.css'
 import Dates from '../components/Date/Date';
 import Button from '../components/UI/Button';
 import data from './data';
-
 import axios from "axios";
 import { useUserAuth } from '../store/UserAuthContext';
+import TextContainer from '../components/TextContainer/TextContainer';
 const qs = require('qs')
 
 const NewRecord = (props) => {
   const [userInput, setUserInput] = useState("");
   const [userTranscribedInput, setUserTranscribedInput] = useState("");
-  // const [userTranslateInput, setUserTranslateInput] = useState("");
   const [inputDestinationLanguage, setInputDestinationLanguage] = useState();
   const [inputSourceLanguage, setInputSourceLanguage] = useState("en");
-  const {userTranslateInput,setUserTranslateInput} = useUserAuth()
+  const {userTranslateInput,setUserTranslateInput} = useUserAuth();
 
   const navigate = useNavigate();
 
@@ -31,7 +30,6 @@ const NewRecord = (props) => {
   const onSubmitDestinationLanguageHandler = (event) => {
     setInputDestinationLanguage(event.target.value);
   }
-
 
   useEffect(() => {
     axios.get("https://ymyfish.com/api")
@@ -81,12 +79,35 @@ const NewRecord = (props) => {
       setUserTranslateInput(res.data.translatedText);
       console.log(userTranslateInput);
       console.log("Translate Response", res.data.translatedText);
-      navigate("/records");
     }).catch((err) => {
       console.log(err);
     })
-    // props.onTranslate(userTranslateInput);
   }
+
+  const current = new Date();
+  const day = current.toDateString();
+
+  const onSubmitTranslateHandler = async (event) => {
+    event.preventDefault();
+    const res = fetch ("https://medinclude-8a7fa-default-rtdb.firebaseio.com/usertranslateData.json",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({
+        date:day,
+        translated_data: userTranslateInput,
+      })
+    }
+    );
+    if(res) {
+      alert(res);
+      console.log(res);
+    } else {
+      alert("Pldkljs");
+    }
+  };
 
   return (
     <div>
@@ -129,7 +150,6 @@ const NewRecord = (props) => {
             {data.map((data) => (
               <option value={data.code}>{data.language}</option>
             ))}
-
           </select>
         </div>
       </div>
@@ -141,7 +161,15 @@ const NewRecord = (props) => {
       <div className={`${styles.button} ${styles.button1}`}>
         <Button onClick={onSubmitTranscribedHandler}>Translate</Button>
       </div>
-      <p>{userTranslateInput}</p>
+      {userTranslateInput.length>1 &&
+      <div>
+      <TextContainer/>
+      <div className={`${styles.button} ${styles.button1}`}>
+        <Button onClick={onSubmitTranslateHandler}>Save</Button>
+      </div>
+      </div>
+}
+  
     </div>
   )
 }

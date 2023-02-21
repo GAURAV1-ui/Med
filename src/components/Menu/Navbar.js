@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 // import Button from '../UI/Button';
 import "./Navbar.css";
-
+import { auth, db } from "../../firebase";
+import { ref, onValue } from "firebase/database";
+import { signOut } from "firebase/auth";
 import { useUserAuth } from "../../store/UserAuthContext";
 
-const Navbar = (props) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {logOut,isLoggedIn} = useUserAuth();
+  const [username, setUsername] = useState("");
+  const {currentUser} = useUserAuth();
   const navigate = useNavigate();
-  const userLogout = async() =>{
+ 
     
-    try {
-      await logOut()
-      navigate("/login")
-    } catch {
-      // setError("Failed to log out")
-      alert("error");
-    }
-  }
+    // const clickLogin = () => {
+    //   if (currentUser) {
+    //     logOut(auth);
+    //   } else {
+    //     navigate("/login");
+    //   }
+    // };
+    useEffect(() => {
+      if (currentUser) {
+        const starCountRef = ref(db, "users/" + currentUser.uid);
+        onValue(starCountRef, (snapshot) => {
+          if (snapshot.exists()) {
+            var data = snapshot.val();
+            setUsername(data.firstName + " " + data.lastName);
+          }
+        });
+      }
+    }, [currentUser]);
+  
+    const clickLogin = () => {
+      if (currentUser) {
+        signOut(auth);
+        navigate("/login");
+      } else {
+        navigate("/login");
+      }
+    };
   
  
  
@@ -28,12 +50,14 @@ const Navbar = (props) => {
       <span className="nav-logo">MedInclude</span>
       
       <div className={`nav-items ${isOpen && "open"}`}>
+        <p>{username}</p>
         <NavLink to="/" activeClassName = "">Portal</NavLink>
-        {isLoggedIn&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
-        {isLoggedIn&&<NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
+        {currentUser&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
+        {currentUser&&<NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
         {/* <Button onClick = {props.onShowLogin}>Login</Button> */}
-
-        {isLoggedIn&&<button onClick={userLogout}>logout</button>}
+        <button onClick={clickLogin}>
+          {currentUser ? "Log Out" : "Login"}
+        </button>
       </div>
       
       <div

@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-// import Modal from '../UI/Modal'
 import Back from '../SignUp/Back';
 import Input from '../UI/Input/Input';
 import Card from '../UI/Card';
@@ -9,12 +8,12 @@ import Button from '../UI/Button'
 import styles from './Login.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useUserAuth } from "../../store/UserAuthContext";
-const Login = (props) => {
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../../firebase"
+const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { logIn } = useUserAuth();
 
     const navigate = useNavigate();
 
@@ -47,53 +46,33 @@ const Login = (props) => {
         const emails = "+91"+email+"@domain.com"
         console.log(emails);
         // setSubmitButtonDisabled(true);
-        try{
-          await logIn(emails, password);
-          // setSubmitButtonDisabled(false);
-          // alert("success");
-          toast.success("Successfull");
-          navigate("/");
-        }
+        // try{
+        //   await logIn(emails, password);
+        //   toast.success("Successfull");
+        //   navigate("/");
+        // }
   
-          catch {
-            // setSubmitButtonDisabled(false);
-            console.log();
+        //   catch {
+        //     console.log();
+        //     toast.error("Please enter valid number and password");
+        //   };
+        function onRegister() {
+          signInWithEmailAndPassword(auth, emails, password).then((res)=>{
+            console.log(res);
+            toast.success("Successfull");
+            navigate("/");
+          }).catch((error) =>{
+            console.log(error);
             toast.error("Please enter valid number and password");
-          };
+          }
+          );
           
-        // const enteredFirstName = 
-    }
-  return (
-    // <Modal className = {styles.modal} onClose = {props.onCloseLogin}>
-    //     <div>
-    //     <div className={styles.loginHeading}>
-    //         <h1>MedInclude</h1>
-    //         <h4>Simple. Understandable. Accessible</h4>
-    //     </div>
-    //     <form>
-    //         <div className={styles.LoginInput}>
-    //             <input
-    //             id="useremail" 
-    //             type = "email"
-    //             value = "iamg@gmail.com">
-    //             </input>
-    //             <input 
-    //             id = "userpassword" 
-    //             type = "password"
-    //             value = "*********">
+        }
+        onRegister();
+    };
 
-    //             </input>
-    //         </div>
-    //             <CheckBox/>
-    //         <div className={styles.button}>
-    //         <Button>Log In</Button>
-    //         </div>
-    //     </form>
-    //     <div>
-    //         <p>Don't have an account? <a href="/" style={{color: "green", textDecoration: "none"}}>Sign Up</a></p>
-    //     </div>
-    //     </div>
-    // </Modal>
+  return (
+   
     <div>
     <Back/>
 <Card>

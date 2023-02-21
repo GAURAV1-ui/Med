@@ -6,14 +6,16 @@ import Button from '../components/UI/Button';
 import Navbar from '../components/Menu/Navbar';
 
 import { useUserAuth } from "../store/UserAuthContext";
-// import MainImage from '../Images/Project_69-08.jpg'
 
 const Portal = (props) => {
   const navigate = useNavigate();
-  const {isLoggedIn,user} = useUserAuth();
+  const {currentUser} = useUserAuth();
 
   const handleClickLogin =() => {
-    navigate("/login");
+    navigate("/signin");
+  }
+  const handleClickStarted =() => {
+    navigate("/");
   }
   return (
     <div>
@@ -27,11 +29,11 @@ const Portal = (props) => {
           <br/>
           <div className={styles.button}>
             <div className={styles.button1}>
-          <Button>Get Started</Button>
+          <Button onClick = {handleClickStarted}>Get Started</Button>
           </div>
-         {!isLoggedIn && <div className={styles.button2} onClick ={handleClickLogin}>
-          <Button >Log In</Button>
-          </div>} 
+         <div className={styles.button2} onClick ={handleClickLogin}>
+          {!currentUser &&<Button >Sign In</Button>}
+          </div>
           </div>
       </div>
       
@@ -41,7 +43,7 @@ const Portal = (props) => {
         <h1>Record</h1>
     </div>
     <div className={styles.textContainer}>
-        <TextContainer />
+        <TextContainer/>
     </div>
     </div>    
     </div>
