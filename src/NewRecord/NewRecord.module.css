@@ -33,10 +33,25 @@ textarea {
   .selectOption {
     display: flex;
     justify-content: space-between;
-    margin: 1rem 2rem;
+    margin: 1rem 1.5rem;
   }
 
-
+  .select {
+    display: flex;
+  }
+p{
+  margin:5px 1px;
+  color: #106e5b;
+}
+select{
+  /* border: 1 px solid #106e5b; */
+  border: none;
+  color:#106e5b;
+  width: 90%;
+}
+/* option{
+  color:#106e5b;
+} */
 
   @media (max-width: 600px) {
     textarea{
@@ -50,6 +65,12 @@ textarea {
     .button {
         margin-right: 2rem;
     }
-
-     
+    .select {
+      display: flex;
+      flex-direction: column;
+    }
+    p{
+      font-size: 12px;
+      
+    }
      }

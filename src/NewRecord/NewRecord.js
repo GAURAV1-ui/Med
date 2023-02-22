@@ -9,7 +9,10 @@ import Button from '../components/UI/Button';
 import data from './data';
 import axios from "axios";
 import { useUserAuth } from '../store/UserAuthContext';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import TextContainer from '../components/TextContainer/TextContainer';
+import { serverTimestamp } from "firebase/firestore"; 
 import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
 
@@ -17,7 +20,7 @@ const qs = require('qs')
 const NewRecord = (props) => {
   const [userInput, setUserInput] = useState("");
   const [userTranscribedInput, setUserTranscribedInput] = useState("");
-  const [inputDestinationLanguage, setInputDestinationLanguage] = useState();
+  const [inputDestinationLanguage, setInputDestinationLanguage] = useState(data[0].code);
   const [inputSourceLanguage, setInputSourceLanguage] = useState("en");
   const {userTranslateInput,setUserTranslateInput} = useUserAuth();
 
@@ -29,8 +32,8 @@ const NewRecord = (props) => {
     console.log(userInput);
   }
 
-  const onSubmitSourceLanguageHandler = (event) => {
-    setInputSourceLanguage(event.target.value);
+  const onSubmitSourceLanguageHandler = () => {
+    setInputSourceLanguage("en");
   }
   const onSubmitDestinationLanguageHandler = (event) => {
     setInputDestinationLanguage(event.target.value);
@@ -68,6 +71,7 @@ const NewRecord = (props) => {
   }
 
   const onSubmitTranscribedHandler = () => {
+    if(inputDestinationLanguage.length>1){
     axios({
       method: 'post',
       url: 'https://ymyfish.com/api/translate',
@@ -80,21 +84,23 @@ const NewRecord = (props) => {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       }
     }).then((res) => {
-      // const result = res;
       setUserTranslateInput(res.data.translatedText);
       console.log(userTranslateInput);
       console.log("Translate Response", res.data.translatedText);
     }).catch((err) => {
       console.log(err);
-    })
+    })}else{
+      toast.error("Please select destintion language");
+    }
   }
 
   const current = new Date();
-  const day = current.toDateString();
+  const createdAt = serverTimestamp();
+  const date = current.toDateString();
 
   const onSubmitTranslateHandler = async (event) => {
     event.preventDefault();
-    await addDoc(usersCollectionRef, { day: day, translatedData:userTranslateInput });
+    await addDoc(usersCollectionRef, { createdAt:createdAt,date: date, translatedData:userTranslateInput });
     navigate("/records");
   };
 
@@ -117,20 +123,19 @@ const NewRecord = (props) => {
         <Button onClick={onSubmitHandler}>Upload</Button>
       </div>
       <div className={styles.selectOption}>
-        <div>
-          <label htmlFor="sourcelanguage">Source Language</label>
+        <div className={styles.select}>
+          <p htmlFor="sourcelanguage">Source Language:</p>
           <select
             name="sourcelanguage"
             id="sourcelanguage"
             value={inputSourceLanguage}
             onChange={onSubmitSourceLanguageHandler}>
-            {data.map((data) => (
-              <option value={data.code}>{data.language}</option>
-            ))}
+              <option value={inputSourceLanguage}>English</option>
+
           </select>
         </div>
-        <div>
-          <label htmlFor="destinationlanguage">Destination Language</label>
+        <div className = {styles.select}>
+          <p htmlFor="destinationlanguage">Destination Language:</p>
           <select
             name="destinationlanguage"
             id="sourcelanguage"
@@ -150,6 +155,7 @@ const NewRecord = (props) => {
       <div className={`${styles.button} ${styles.button1}`}>
         <Button onClick={onSubmitTranscribedHandler}>Translate</Button>
       </div>
+      <ToastContainer/>
       {userTranslateInput.length>1 &&
       <div>
       <TextContainer/>

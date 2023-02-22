@@ -10,6 +10,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../firebase"
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 const Login = () => {
 
     const [email, setEmail] = useState("");
@@ -17,10 +19,10 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const changeNumberHandler = (event) => {
-        event.preventDefault();
-        setEmail(event.target.value);
-    }
+    // const changeNumberHandler = (event) => {
+    //     event.preventDefault();
+    //     setEmail(event.target.value);
+    // }
     const changePasswordHandler = (event) => {
       event.preventDefault();
       setPassword(event.target.value );
@@ -43,7 +45,7 @@ const Login = () => {
           return;
         }
 
-        const emails = "+91"+email+"@domain.com"
+        const emails = email+"@domain.com"
         console.log(emails);
         // setSubmitButtonDisabled(true);
         // try{
@@ -65,8 +67,7 @@ const Login = () => {
             console.log(error);
             toast.error("Please enter valid number and password");
           }
-          );
-          
+          );        
         }
         onRegister();
     };
@@ -81,17 +82,23 @@ const Login = () => {
         <h5>Simple. Understandable. Accessible</h5>
     </div>
     <form >
-    <Input 
+    {/* <Input 
     id = "email" 
     type="number"  
     required
     value ={email}
     onChange ={changeNumberHandler}
-    // isValid={emailIsValid} 
     placeholder = "9693098513"
-    // onChange={emailChangeHandler}
-    // onBlur={validateEmailHandler}/>
-    />
+    /> */}
+    <PhoneInput
+        className={styles.phoneInput}
+        international
+        countryCallingCodeEditable={false}
+        defaultCountry="US"
+         placeholder="Enter phone number"
+         value={email}
+         onChange={setEmail}
+         />
     <ToastContainer/>
     <Input 
     id = "password" 
@@ -100,9 +107,6 @@ const Login = () => {
     value ={password}
     onChange ={changePasswordHandler}
     required
-    // isValid={emailIsValid} 
-    // onChange={emailChangeHandler}
-    // onBlur={validateEmailHandler}/>
     />
 
     <CheckBox/>

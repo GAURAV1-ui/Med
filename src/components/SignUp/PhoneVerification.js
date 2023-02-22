@@ -10,13 +10,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { RecaptchaVerifier,signInWithPhoneNumber } from 'firebase/auth';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import { serverTimestamp } from "firebase/firestore"; 
 
-const EmailVerification = (props) => {
 
-    const countryCode = "+91";
-    
+const EmailVerification = (props) => {    
     const[user,setUser] = useState();
-    const [number, setNumber] = useState(countryCode);
+    const [number, setNumber] = useState("");
     const [otp, setOtp] = useState('');
     const [flag, setFlag] = useState(false);
 
@@ -35,9 +36,9 @@ const EmailVerification = (props) => {
         };
       }, []);
 
-    const numberChangeHandler = (e) => {
-        setNumber(e.target.value);
-    }
+    // const numberChangeHandler = (e) => {
+    //     setNumber(e.target.value);
+    // }
     const otpChangeHandler = (e) => {
         setOtp(e.target.value);
     }
@@ -46,7 +47,6 @@ const EmailVerification = (props) => {
         window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
              'size': 'invisible',
              'callback': (response) => {
-
              }
         }, auth);
     }
@@ -57,7 +57,7 @@ const EmailVerification = (props) => {
         if(number.length<12){
             toast.error("Enter valid number");
         }
-        if(number.length >= 12){
+        if(number.length >= 13){
             
            generateRecaptcha();
            let appVerifier = window.recaptchaVerifier;
@@ -114,19 +114,24 @@ const EmailVerification = (props) => {
         <form >
   
     
-        <Input 
+        {/* <Input 
         id = "number" 
         label= "Phone Number" 
         type="tel"
         placeholder = "9693098513" 
         value ={number}
-        onChange={numberChangeHandler}
-        
-        // isValid={emailIsValid} 
-        // onChange={phoneChangeHandler}
-        // onBlur={validateEmailHandler}/>
-        
-        />
+        onChange={numberChangeHandler}    
+        /> */}
+        <PhoneInput
+        className={styles.phoneInput}
+        international
+        countryCallingCodeEditable={false}
+        defaultCountry="US"
+         placeholder="Enter phone number"
+         value={number}
+         onChange={setNumber}
+         />
+
         <ToastContainer/>
         <div id="recaptcha-container"></div>
          <div className={styles.button}>
