@@ -12,7 +12,7 @@ const Portal = (props) => {
   const {currentUser} = useUserAuth();
 
   const handleClickLogin =() => {
-    navigate("/signin");
+    navigate("/signup");
   }
   const handleClickStarted =() => {
     navigate("/");
@@ -32,7 +32,7 @@ const Portal = (props) => {
           <Button onClick = {handleClickStarted}>Get Started</Button>
           </div>
          <div className={styles.button2} onClick ={handleClickLogin}>
-          {!currentUser &&<Button >Sign In</Button>}
+          {!currentUser &&<Button >Sign Up</Button>}
           </div>
           </div>
       </div>   

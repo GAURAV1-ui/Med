@@ -45,9 +45,12 @@ label {
 }
 
 .phoneInput{
-    width: 350px;
+    border:2px solid #1e8570;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    margin: 1.5rem 0;
 }
-
 .PhoneInputInput{
     height: 70px !important;
     border-color:green !important;

@@ -98,6 +98,11 @@ const Login = () => {
          placeholder="Enter phone number"
          value={email}
          onChange={setEmail}
+         PhoneInputInput = {{
+          color: "green",
+          height: "40px"
+
+         }}
          />
     <ToastContainer/>
     <Input 
