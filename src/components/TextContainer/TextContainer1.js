@@ -3,12 +3,12 @@ import Card1 from '../UI/Card1';
 import Date from '../Date/Date';
 import {db} from '../../firebase';
 import {collection,getDocs} from 'firebase/firestore'
-import { query, orderBy} from "firebase/firestore"; 
+import { query, orderBy,limit} from "firebase/firestore"; 
 import classes from './TextContainer1.module.css'
 const TextContainer1 = () => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = query(collection(db, "Users"));
-  const q = query(usersCollectionRef, orderBy('createdAt',"desc"))
+  const q = query(usersCollectionRef, orderBy('createdAt',"desc"),limit(1))
   useEffect(() => {
       const getUsers = async () => {
         const data = await getDocs(q);
