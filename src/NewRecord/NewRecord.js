@@ -13,7 +13,7 @@ import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextContainer from '../components/TextContainer/TextContainer';
 import { serverTimestamp } from "firebase/firestore"; 
-import TextContainer1 from '../components/TextContainer/TextContainer1';
+// import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
 
 
