@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {collection,addDoc,updateDoc} from "firebase/firestore";
+import {collection,addDoc} from "firebase/firestore";
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/SignUp/Back';
@@ -13,6 +13,9 @@ import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextContainer from '../components/TextContainer/TextContainer';
 import { serverTimestamp } from "firebase/firestore"; 
+// import Modal from '../components/UI/Modal';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 // import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
 
@@ -38,6 +41,8 @@ const NewRecord = (props) => {
   const onSubmitDestinationLanguageHandler = (event) => {
     setInputDestinationLanguage(event.target.value);
   }
+
+
 
   useEffect(() => {
     axios.get("https://ymyfish.com/api")
@@ -86,6 +91,7 @@ const NewRecord = (props) => {
     }).then((res) => {
       setUserTranslateInput(res.data.translatedText);
       console.log(userTranslateInput);
+      // localStorage.setItem("download",JSON.stringify(userTranslateInput));
       console.log("Translate Response", res.data.translatedText);
     }).catch((err) => {
       console.log(err);
@@ -101,8 +107,23 @@ const NewRecord = (props) => {
   const onSubmitTranslateHandler = async (event) => {
     event.preventDefault();
     await addDoc(usersCollectionRef, { createdAt:createdAt,date: date, translatedData:userTranslateInput });
+    setUserTranslateInput("");
     navigate("/records");
   };
+
+  const onDownloadHandler = () => {
+    const element = document.currentElement('a');
+    const file = new Blob([userTranslateInput],{
+      type: "text/plain;charset=utf-8"
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "NewDocument.txt";
+    document.body.appendChild(element);
+    element.click();
+  }
+
+
+
 
   return (
     <div>
@@ -160,10 +181,32 @@ const NewRecord = (props) => {
       <div>
       <TextContainer/>
       <div className={`${styles.button} ${styles.button1}`}>
-        <Button onClick={onSubmitTranslateHandler}>Save</Button>
+      <Popup
+       contentStyle =
+       {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
+       trigger={<Button > Save </Button>}
+        modal nested>
+        {
+                    // close => (
+       <div className={styles.modal}>
+          <div className={styles.content}>
+            <p>{userTranslateInput}</p>
+          </div>
+        <div className={styles.modalButton}>
+          <button className={styles.modalButton1} onClick={onSubmitTranslateHandler}>Save</button>
+          <button className = {styles.modalButton2} onClick={onDownloadHandler}>Download</button>
+        </div>
+        </div>
+                    // )
+          }
+            </Popup>
+        
       </div>
+
       </div>
 }
+   
+  
     </div>
   )
 }

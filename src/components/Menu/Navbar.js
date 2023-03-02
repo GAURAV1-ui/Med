@@ -54,7 +54,6 @@ const Navbar = () => {
         <NavLink to="/" activeClassName = "">Portal</NavLink>
         {currentUser&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
         {currentUser&&<NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
-        {/* <Button onClick = {props.onShowLogin}>Login</Button> */}
         <button onClick={clickLogin}>
           {currentUser ? "Log Out" : "Login"}
         </button>

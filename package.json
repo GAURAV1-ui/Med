@@ -18,7 +18,10 @@
     "react-phone-number-input": "^3.2.19",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
+    "react-share": "^4.4.1",
     "react-toastify": "^9.1.1",
+    "react-web-share": "^2.0.2",
+    "reactjs-popup": "^2.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

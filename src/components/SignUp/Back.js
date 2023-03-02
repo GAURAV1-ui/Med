@@ -5,6 +5,7 @@ import styles from './Back.module.css';
   const Back= () => {
     const navigate = useNavigate();
     const goBack = () => {
+      
       navigate(-1);
     }
   return (

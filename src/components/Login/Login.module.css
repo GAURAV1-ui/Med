@@ -76,7 +76,6 @@ input[type=password]{
 }
 .phoneInput{
     border:2px solid #1e8570;
-    /* margin: -10px; */
     padding: 15px;
     border-radius: 5px;
     width: 100%;

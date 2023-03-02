@@ -82,14 +82,7 @@ const Login = () => {
         <h5>Simple. Understandable. Accessible</h5>
     </div>
     <form >
-    {/* <Input 
-    id = "email" 
-    type="number"  
-    required
-    value ={email}
-    onChange ={changeNumberHandler}
-    placeholder = "9693098513"
-    /> */}
+
     <PhoneInput
         className={styles.phoneInput}
         international
@@ -97,12 +90,7 @@ const Login = () => {
         defaultCountry="US"
          placeholder="Enter phone number"
          value={email}
-         onChange={setEmail}
-         PhoneInputInput = {{
-          color: "green",
-          height: "40px"
-
-         }}
+         onChange={setEmail}  
          />
     <ToastContainer/>
     <Input 

@@ -12,22 +12,25 @@ import NewRecord from "./NewRecord/NewRecord";
 import { UserAuthContextProvider } from "./store/UserAuthContext"
 
 function App() {
-  const [translateData, setTranslateData] = useState("");
-  const onClick = (data) => {
-    alert(data);
-    setTranslateData(data);
-    console.log(data);
-    console.log(translateData);
-  }
+  // const {setButtonIsShown} = useUserAuth();
+  // const [translateData, setTranslateData] = useState("");
+  // const onClick = (data) => {
+  //   alert(data);
+  //   setTranslateData(data);
+  //   console.log(data);
+  //   console.log(translateData);
+  // }
+  
+
  
   return (
     <main>    
       <Router>
       <UserAuthContextProvider>
         <Routes>
-           <Route exact path="/" element={<Portal/>}/>
-          <Route exact path="/records" element={<Records data = {translateData}/>}/> 
-          <Route exact path = "/newrecord" element = {<NewRecord onTranslate = {onClick}/>}/>
+          <Route exact path="/" element={<Portal/>}/>
+          <Route exact path="/records" element={<Records/>}/> 
+          <Route exact path = "/newrecord" element = {<NewRecord/>}/>
           <Route exact path= "/login" element ={<Login/>}/>
           <Route exact path ="/signup" element = {<SignUp/>}/>
           <Route exact path ="/phoneverification" element = {<PhoneVerification/>}/>

@@ -22,6 +22,7 @@ textarea {
   .button {
     text-align: end;
     margin-right: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .button button {
@@ -41,7 +42,7 @@ textarea {
   }
 p{
   margin:5px 1px;
-  color: #106e5b;
+  /* color: #106e5b; */
 }
 select{
   /* border: 1 px solid #106e5b; */
@@ -52,6 +53,28 @@ select{
 /* option{
   color:#106e5b;
 } */
+.modalButton {
+  text-align: center;
+}
+.modalButton1,.modalButton2{
+background-color: #106e5b;
+color: white;
+padding: 8px;
+margin: 3rem 2rem 0.5rem 2rem;
+border: none;
+border-radius: 5px;
+width: 20%;
+}
+/* .modalButton1{
+  margin-right: 5px;
+} */
+.content{
+  border: 2px solid #106e5b;
+  padding: 10px;
+}
+.content p {
+  font-size: 1.5rem
+}
 
   @media (max-width: 600px) {
     textarea{
@@ -73,4 +96,13 @@ select{
       font-size: 12px;
       
     }
+    .content p{
+      font-size: 15px;
+    }
+    .modalButton1,.modalButton2{
+      padding: 8px;
+      margin: 2rem 0.1rem 0.1rem 0.1rem;
+
+      width: 46%;
+      }
      }
