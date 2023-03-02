@@ -26,7 +26,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ currentUser,userTranslateInput,setUserTranslateInput, firstName,setFirstName,lastName,setLastName,buttonIsShow, setButtonIsShown, showButtonHandler, hideButtonHandler}}
+      value={{ currentUser,userTranslateInput,setUserTranslateInput, firstName,setFirstName,lastName,setLastName}}
     >
       {children}
     </userAuthContext.Provider>
