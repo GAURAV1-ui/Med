@@ -76,8 +76,8 @@ ul li{
 
 @media screen and (max-width: 900px) {
   .heading h1{
-    margin:2rem 0 0.5rem 0;
-    font-size: 25px;
+    margin: 2rem 0 0.5rem 0;
+    font-size: 22px;
     font-weight: 600;
   }
   .home_background{
