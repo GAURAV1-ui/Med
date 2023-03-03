@@ -7,29 +7,21 @@ import Back from './Back';
 import styles from './Password.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import {useUserAuth} from "../../store/UserAuthContext"
-import { auth, db } from "../../firebase";
-import { ref, set } from "firebase/database";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {useUserAuth} from "../../store/UserAuthContext";
+import axios from 'axios';
 
-const Password = (props) => {
+const Password = () => {
 
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const {firstName,lastName, email, setEmail} = useUserAuth();
 
-  const items = JSON.parse(localStorage.getItem('User'));
-  console.log(items);
-  const {state} = useLocation();
-  const number = state;
-  console.log(number);
-  const email = number+"@domain.com";
-  console.log(email);
   const changePasswordHandler = (event) => {
   const passwordInputValue = event.target.value.trim();
   setPassword(passwordInputValue);
   }
 
-    const handleSubmission = async(event) => {
+    const handleSubmission = (event) => {
     event.preventDefault();
     let passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/; 
     if (password === "") {
@@ -39,19 +31,22 @@ const Password = (props) => {
       toast.error("Password is not Valid");
       return;
     }   
-    function onRegister() {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          set(ref(db, "users/" + userCredential.user.uid), {
-            firstName: items.firstName,
-            lastName: items.lastName,
-            email: email,
-          });
+
+      axios({
+          method: 'post',
+          url: 'https://medinclude-api.onrender.com/api/register',
+          data:{
+              firstName: firstName,
+              lastName: lastName,
+              uniqueId: email,
+              password: password,
+          },
+        }).then((res) => {
+          console.log(res.data);
+          navigate("/login");
+        }).catch((err) => {
+          console.log(err);
         })
-        .catch((error) => console.log(error));
-      navigate("/");
-    }
-    onRegister();
   };
 
   return (
@@ -63,7 +58,7 @@ const Password = (props) => {
             <hr className= {styles.line}/>
         </div>
         <div className={styles.heading}>
-            <h2>Create an E-mail and password for your account</h2>
+            <h2>Create password for your account</h2>
         </div>
         <form onSubmit={handleSubmission}>
         <Input 

@@ -31,13 +31,6 @@ const SignUp = () => {
         toast.error("Name is not valid");
         return
       }
-      const names = {
-        firstName: firstName,
-        lastName: lastName
-      } 
-       
-      localStorage.setItem("User",JSON.stringify(names));
-      console.log(names);
       navigate("/phoneverification");
     } 
 

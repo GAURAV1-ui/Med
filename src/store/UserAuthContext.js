@@ -9,6 +9,7 @@ export function UserAuthContextProvider({ children }) {
   const[userTranslateInput,setUserTranslateInput] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ currentUser,userTranslateInput,setUserTranslateInput, firstName,setFirstName,lastName,setLastName}}
+      value={{ currentUser,userTranslateInput,setUserTranslateInput, firstName,setFirstName,lastName,setLastName,email,setEmail}}
     >
       {children}
     </userAuthContext.Provider>

@@ -4,10 +4,11 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
 import Back from './Back';
-// import { db } from '../../firebase';
+import {useUserAuth} from "../../store/UserAuthContext"
 import styles from './PhoneVerification.module.css';
 // import {auth} from '../../firebase'
 // import { onAuthStateChanged } from 'firebase/auth';
+
 import axios from 'axios';
 
 import { toast,ToastContainer } from 'react-toastify';
@@ -17,16 +18,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const EmailVerification = (props) => {    
-    // const[user,setUser] = useState();
-    // const[userNumber,setUserNumber] = useState();
-    const [email, setEmail] = useState();
+
+    const {firstName,email,setEmail} = useUserAuth();
     const [userOtp, setUserOtp] = useState('');
     const [flag, setFlag] = useState(false);
-    const [otp, setOtp] = useState("");
     const [hasCode, setHashCode] = useState("");
-    const [uniqueId, setUniqueId] = useState("");
 
-    const items = JSON.parse(localStorage.getItem('User'));
     const navigate = useNavigate();
 
     const emailChangeHandler = (event) => {
@@ -109,33 +106,34 @@ const EmailVerification = (props) => {
                 uniqueId:email
             },
           }).then((res) => {
-            console.log(res.data);
-
+            console.log(res.data.otp);
+            setHashCode(res.data.hash);
             setFlag(true);
           }).catch((err) => {
             console.log(err);
             setFlag(false);
           })
     }
-
+    
     const verifyOtp = (event) => {
-        console.log("I got it");
         event.preventDefault();
-    if(otp.length<6){
+        console.log("I got it");
+    if(userOtp.length<6){
         toast.error("Enter valid otp");
     }
-    if(otp.length === 6){
+    console.log("I got iteee");
+    if(userOtp.length === 6){
         axios({
             method: 'post',
             url: 'https://medinclude-api.onrender.com/api/verify-otp',
             data:{
+                uniqueId: email,
                 hash:hasCode,
-                otp: otp,
-                uniqueId: email
+                otp: userOtp,   
             },
           }).then((res) => {
             console.log(res.data);
-            navigate("/password")
+            navigate("/password");
           }).catch((err) => {
             console.log(err);
           })
@@ -156,7 +154,7 @@ const EmailVerification = (props) => {
 
         <div className={styles.heading}>
             
-            <h2>Hi {items.firstName}! Please enter your Phone number</h2>
+            <h2>Hi {firstName}! Please enter your Phone number</h2>
             <p>Used for login and recovery of your records</p>
         </div>
         <form >
@@ -173,7 +171,6 @@ const EmailVerification = (props) => {
     
 
         <ToastContainer/>
-        <div id="recaptcha-container"></div>
          <div className={styles.button}>
         <Button type = "submit" onClick={getOtp}>Request OTP</Button>
         </div>
@@ -187,7 +184,7 @@ const EmailVerification = (props) => {
             <hr className= {styles.line}/>
         </div>
         <div className={styles.heading}>
-            <h2>Hi {items.firstName}! Please enter your OTP</h2>
+            <h2>Hi {firstName}! Please enter your OTP</h2>
             <p>Used for login and recovery of your records</p>
         </div>
    
@@ -203,7 +200,7 @@ const EmailVerification = (props) => {
         />
         <ToastContainer/>
         <div className={styles.button}>
-        <Button type="submit" onSubmit = {verifyOtp}>Confirm OTP</Button>
+        <Button type="submit" onClick = {verifyOtp}>Confirm OTP</Button>
         </div>
         </form>
         
