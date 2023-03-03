@@ -7,6 +7,7 @@ import { auth, db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import { signOut } from "firebase/auth";
 import { useUserAuth } from "../../store/UserAuthContext";
+import logo from '../../Images/logo.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,9 +47,8 @@ const Navbar = () => {
  
  
   return (
-    <div className="Navbar">
-      <span className="nav-logo">MedInclude</span>
-      
+    <div className="Navbar">   
+      <img className="nav-logo" src ={logo}/>
       <div className={`nav-items ${isOpen && "open"}`}>
         <p>{username}</p>
         <NavLink to="/" activeClassName = "">Portal</NavLink>

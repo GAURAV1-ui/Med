@@ -8,10 +8,9 @@
   }
 
   .Navbar > .nav-logo {
-	font-weight: 700;
-	font-size: 21px;
-	padding-left:30px;
-	color: #ffffff;
+	margin-left: 3rem;
+	width: 20%;
+	height: 50%;
   }
   
   .Navbar > .nav-items > a {

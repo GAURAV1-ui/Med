@@ -7,7 +7,7 @@ import Navbar from '../components/Menu/Navbar';
 import med from '../Images/2.jpg';
 import About from './About';
 
-import { useUserAuth } from "../store/UserAuthContext";
+// import { useUserAuth } from "../store/UserAuthContext";
 
 const Portal = (props) => {
   // const navigate = useNavigate();
@@ -73,7 +73,7 @@ const Portal = (props) => {
                 <button
                   className={styles.home_form_button}
                   onClick={() => {
-                    window.location.href = "/";
+                    window.location.href = "/signup";
                   }}
                 >
                   Sign up

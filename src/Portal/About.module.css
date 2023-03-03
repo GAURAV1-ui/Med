@@ -8,14 +8,14 @@
   .about_background{
     display: flex;
     width: 100%;
-    min-height: 40vh;
+    min-height: 80vh;
   }
   .about_container{
     margin: auto;
   }
   .float_container {
     display: flex;
-    gap: 15px;
+    gap: 50px;
   
   }
   .about_img {
@@ -55,6 +55,9 @@
       margin:2rem 0 0.5rem 0;
       font-size: 32px;
       font-weight: 600;
+    }
+    .about_background{
+        min-height: 40vh;
     }
     .about_container{
         margin: auto;
