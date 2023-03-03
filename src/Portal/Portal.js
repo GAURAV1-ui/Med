@@ -4,7 +4,8 @@ import TextContainer1 from '../components/TextContainer/TextContainer1';
 import styles from './Portal.module.css';
 import Button from '../components/UI/Button';
 import Navbar from '../components/Menu/Navbar';
-import med from '../Images/2.jpg'
+import med from '../Images/2.jpg';
+import About from './About';
 
 import { useUserAuth } from "../store/UserAuthContext";
 
@@ -60,6 +61,7 @@ const Portal = (props) => {
               <h1>
                 Medical Information:
               </h1>
+              <br/>
               <ul>
                 <li>Simple</li>
                 <li>Accessible</li>
@@ -71,10 +73,10 @@ const Portal = (props) => {
                 <button
                   className={styles.home_form_button}
                   onClick={() => {
-                    window.location.href = "/contact";
+                    window.location.href = "/";
                   }}
                 >
-                  Contact us
+                  Sign up
                 </button>
                 
               </div>
@@ -86,6 +88,7 @@ const Portal = (props) => {
           </div>
         </div>
       </div>
+      <About/>
     </div>
   )
 }
