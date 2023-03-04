@@ -7,9 +7,10 @@ import Navbar from '../components/Menu/Navbar';
 import med from '../Images/2.jpg';
 import About from './About';
 
-// import { useUserAuth } from "../store/UserAuthContext";
+import { useUserAuth } from "../store/UserAuthContext";
 
 const Portal = (props) => {
+  const {userLoggedIn} = useUserAuth();
   // const navigate = useNavigate();
   // const {currentUser} = useUserAuth();
 
@@ -69,7 +70,7 @@ const Portal = (props) => {
               </ul>
               <br/>
               <p>Simplify medical information in three minutes. Read it in your preferred language and access it anytime, anywhere.</p>
-              <div className={`${styles.home_form_group} ${styles.buttons}`}>
+              {!userLoggedIn && <div className={`${styles.home_form_group} ${styles.buttons}`}>
                 <button
                   className={styles.home_form_button}
                   onClick={() => {
@@ -80,6 +81,7 @@ const Portal = (props) => {
                 </button>
                 
               </div>
+              }
             </div>
 
             <div className={`${styles.float_child} ${styles.right}`}>

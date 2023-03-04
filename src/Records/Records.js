@@ -8,14 +8,14 @@ import { useUserAuth } from "../store/UserAuthContext";
 const Records = (props) => {
   const {userTranslateInput} = useUserAuth();
   console.log("Translate Api CheCKIG",userTranslateInput );
-  const {currentUser} = useUserAuth();
+  const {userLoggedIn} = useUserAuth();
   return (
     <>
         <Navbar/>
         <div className={styles.record}>
             <h1>Records</h1>
         </div>
-        {currentUser&&<TextContainer2/>}
+        {userLoggedIn&&<TextContainer2/>}
         
     </>
   

@@ -16,6 +16,7 @@ import { serverTimestamp } from "firebase/firestore";
 // import Modal from '../components/UI/Modal';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { RWebShare } from "react-web-share";
 // import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
 
@@ -181,6 +182,18 @@ const NewRecord = (props) => {
       <div>
       <TextContainer/>
       <div className={`${styles.button} ${styles.button1}`}>
+      <RWebShare
+        data={{
+          text: "Web Share - MedInclude",
+          url: "https://on.natgeo.com/2zHaNup",
+          title: "MedInclude",
+        }}
+        onClick={() => console.log("shared successfully!")}
+      >
+        {/* <button>Share on Web</button> */}
+        <Button onClick={()=> console.log("Shared successfully")}>Share</Button>
+      </RWebShare>
+        
       <Popup
        contentStyle =
        {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
