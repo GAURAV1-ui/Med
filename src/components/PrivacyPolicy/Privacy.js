@@ -1,7 +1,10 @@
 import React from 'react'
+import Back from '../SignUp/Back'
 import styles from "./Privacy.module.css"
 const Privacy = () => {
   return (
+    <div>
+    <Back/>
     <div className={styles.privacy}>
         <h1 className={styles.heading}>Privacy Policy </h1>
         <br/>
@@ -231,6 +234,7 @@ Toronto, Ontario M4W 1A8
 <br/>
 <br/>
 1-416-325-9195 (fax)</p>
+    </div>
     </div>
   )
 }

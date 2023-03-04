@@ -78,7 +78,11 @@
 	  padding: 1rem;
 	 
 	}
-  
+	.Navbar > .nav-logo {
+		margin-left: 1rem;
+		width: 30%;
+		height: 60%;
+	  }
 	.Navbar > .nav-items > a::before {
 		background: transparent;
 	}

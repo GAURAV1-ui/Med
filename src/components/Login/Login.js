@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import Back from '../SignUp/Back';
 import Input from '../UI/Input/Input';
 import Card from '../UI/Card';
@@ -17,7 +17,6 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {loginHandler} = useUserAuth();
-    console.log(loginHandler);
     const navigate = useNavigate();
 
     const changeEmailHandler = (event) => {

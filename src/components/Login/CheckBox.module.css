@@ -8,12 +8,7 @@
 .checkbox1{
     position: relative;
   }
-  .button {
-    border:none;
-    color:#106e5b;
-    background-color: transparent;
-    font-size: medium;
-  }
+
   .text {
     color: #106e5b;
   }
