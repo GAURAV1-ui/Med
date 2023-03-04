@@ -1,3 +1,6 @@
+/* body{
+  background-color: #FAECE1;
+} */
 .heading h1{
   color:#015243;
   text-align: center;
@@ -9,6 +12,7 @@
   display: flex;
   width: 100%;
   min-height: 80vh;
+  
 }
 .home_container{
   margin: auto;

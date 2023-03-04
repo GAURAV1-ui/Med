@@ -6,6 +6,7 @@ import Input from '../UI/Input/Input';
 import Back from './Back';
 import {useUserAuth} from "../../store/UserAuthContext"
 import styles from './PhoneVerification.module.css';
+import { baseUrl } from '../../api/axios';
 // import {auth} from '../../firebase'
 // import { onAuthStateChanged } from 'firebase/auth';
 
@@ -99,47 +100,88 @@ const EmailVerification = (props) => {
         //     console.log(error);
         //     setFlag(false);
         //    }) 
-        axios({
-            method: 'post',
-            url: 'https://medinclude-api.onrender.com/api/send-otp',
-            data:{
-                uniqueId:email
-            },
-          }).then((res) => {
-            console.log(res.data.otp);
-            setHashCode(res.data.hash);
-            setFlag(true);
-          }).catch((err) => {
-            console.log(err);
-            setFlag(false);
-          })
+        // axios({
+        //     method: 'post',
+        //     url: 'https://medinclude-api.onrender.com/api/send-otp',
+        //     data:{
+        //         uniqueId:email
+        //     },
+        //   }).then((res) => {
+        //     console.log(res.data.otp);
+        //     setHashCode(res.data.hash);
+        //     setFlag(true);
+        //   }).catch((err) => {
+        //     console.log(err);
+        //     setFlag(false);
+        //   })
+        const data = {
+            uniqueId:email
+        }
+
+        await axios
+        .post(`${baseUrl}/send-otp`, data)
+        .then(result => {
+          console.log(result);
+          setHashCode(result.data.hash);
+          setFlag(true);
+        //   if (
+        //     result.status !== 200 ||
+        //     (result.status !== 201 && result.data.isError)
+        //   ) {
+        //     setErrosMade({
+        //       title: result.data.title,
+        //       message: result.data.message,
+        //     });
+        //     setTimeout(() => {
+        //       navigate("/signin")
+        //     }, 3000);
+        //     return;
+        //   }
+        })
+        .catch(err => {
+          console.log(err);
+          setFlag(false);
+        });
     }
     
-    const verifyOtp = (event) => {
+    const verifyOtp = async(event) => {
         event.preventDefault();
         console.log("I got it");
     if(userOtp.length<6){
         toast.error("Enter valid otp");
     }
-    console.log("I got iteee");
+    const data = {
+        uniqueId: email,
+        hash:hasCode,
+       otp: userOtp,   
+       }
     if(userOtp.length === 6){
-        axios({
-            method: 'post',
-            url: 'https://medinclude-api.onrender.com/api/verify-otp',
-            data:{
-                uniqueId: email,
-                hash:hasCode,
-                otp: userOtp,   
-            },
-          }).then((res) => {
-            console.log(res.data);
-            navigate("/password");
-          }).catch((err) => {
-            console.log(err);
-          })
-        }
-    }
+            await axios
+        .post(`${baseUrl}/verify-otp`, data)
+        .then(result => {
+          console.log(result);
+          navigate("/password")
+        // axios({
+        //     method: 'post',
+        //     url: 'https://medinclude-api.onrender.com/api/verify-otp',
+        //     data:{
+        //         uniqueId: email,
+        //         hash:hasCode,
+        //         otp: userOtp,   
+        //     },
+        //   }).then((res) => {
+        //     console.log(res.data);
+        //     navigate("/password");
+        //   }).catch((err) => {
+        //     console.log(err);
+        //   })
 
+
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+    }
   return (
     <div>
         <Back/>

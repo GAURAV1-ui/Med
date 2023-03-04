@@ -3,16 +3,13 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 // import Button from '../UI/Button';
 import "./Navbar.css";
-import { auth, db } from "../../firebase";
-import { ref, onValue } from "firebase/database";
-import { signOut } from "firebase/auth";
 import { useUserAuth } from "../../store/UserAuthContext";
 import logo from '../../Images/logo.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
-  const {currentUser} = useUserAuth();
+  const {logOutHandler,userLoggedIn} = useUserAuth();
   const navigate = useNavigate();
  
     
@@ -34,15 +31,23 @@ const Navbar = () => {
     //     });
     //   }
     // }, [currentUser]);
-  
-    const clickLogin = () => {
-      if (currentUser) {
-        signOut(auth);
-        navigate("/login");
-      } else {
-        navigate("/login");
-      }
+
+    const clickLogout = async () => {
+      await logOutHandler();
+      navigate('/login');
     };
+    
+    const clickLogin = () => {
+      navigate("/login")
+    }
+    // const clickLogin = () => {
+    //   if (currentUser) {
+    //     signOut(auth);
+    //     navigate("/login");
+    //   } else {
+    //     navigate("/login");
+    //   }
+    // };
   
  
  
@@ -52,13 +57,15 @@ const Navbar = () => {
       <div className={`nav-items ${isOpen && "open"}`}>
         <p>{username}</p>
         <NavLink to="/" activeClassName = "">Portal</NavLink>
-        {currentUser&&<NavLink to="/records" activeClassName = "">Record</NavLink>}
-        {currentUser&&<NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
-        <button onClick={clickLogin}>
-          {currentUser ? "Log Out" : "Login"}
-        </button>
+        {userLoggedIn && <NavLink to="/records" activeClassName = "">Record</NavLink>}
+        {userLoggedIn && <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
+        {userLoggedIn && <button onClick={clickLogout}>
+           Logout
+        </button>}
+        {!userLoggedIn && <button onClick={clickLogin}>
+           Login
+        </button>}
       </div>
-      
       <div
         className={`nav-toggle ${isOpen && "open"}`}
         onClick={() => setIsOpen(!isOpen)}

@@ -14,7 +14,7 @@ const Password = () => {
 
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
-  const {firstName,lastName, email, setEmail} = useUserAuth();
+  const {firstName,lastName, email} = useUserAuth();
 
   const changePasswordHandler = (event) => {
   const passwordInputValue = event.target.value.trim();

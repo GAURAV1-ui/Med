@@ -8,13 +8,16 @@ import Button from '../UI/Button'
 import styles from './Login.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { baseUrl } from '../../api/axios';
 import axios from 'axios';
+import { useUserAuth } from '../../store/UserAuthContext';
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const {loginHandler} = useUserAuth();
+    console.log(loginHandler);
     const navigate = useNavigate();
 
     const changeEmailHandler = (event) => {
@@ -31,17 +34,17 @@ const Login = () => {
     } 
 
 
-    const handleClickLogin = async(event) => {
-        event.preventDefault();
+    // const handleClickLogin = async(event) => {
+    //     event.preventDefault();
 
-        if (password === "" ||email === "") {
-          toast.error("Please enter email and password");
-          return;
-        }
-        if (password.length<8){
-          toast.error("Please enter valid email and password");
-          return;
-        }
+    //     if (password === "" ||email === "") {
+    //       toast.error("Please enter email and password");
+    //       return;
+    //     }
+    //     if (password.length<8){
+    //       toast.error("Please enter valid email and password");
+    //       return;
+    //     }
 
         // setSubmitButtonDisabled(true);
         // try{
@@ -66,23 +69,86 @@ const Login = () => {
         //   );        
         // }
         // onRegister();
-        axios({
-          method: 'post',
-          url: 'https://medinclude-api.onrender.com/api/login',
-          data:{
-              uniqueId: email,
-              password: password,
-          },
-        }).then((res) => {
-          console.log(res.data);
-          toast.success("Successfull");
-          // navigate("/");
-        }).catch((err) => {
-          console.log(err);
-          console.log(err.error)
-          toast.error("Please enter valid number and password");
-        })
+        // axios({
+        //   method: 'post',
+        //   url: 'https://medinclude-api.onrender.com/api/login',
+        //   data:{
+        //       uniqueId: email,
+        //       password: password,
+        //   },
+        // }).then((res) => {
+        //   console.log(res.data);
+        //   toast.success("Successfull");
+        // }).catch((err) => {
+        //   console.log(err);
+        //   console.log(err.response)
+        //   toast.error("Please enter valid number and password");
+        // })
+        const userLoginHandle = async authData => {
+          // setIsLoading(true)
+          const fetchdata = await axios({
+            method: 'post',
+            data: authData,
+            url: `${baseUrl}/login`,
+          })
+          // .then((res) =>{
+          //   navigate("/");
+          //   console.log(res);
+          // }).catch((err)=>{
+          //   console.log(err);
+          // })
+          // if (
+          //   fetchdata.status !== 200 ||
+          //   (fetchdata.status !== 201 && fetchdata.data.isError)
+          // ) {
+          //   setIsLoading(false)
+          //   setErrosMade({
+          //     title: 'Error',
+          //     message: fetchdata.data.message,
+          //   });
+          // }
+        
+          if (
+            fetchdata.status === 200 ||
+            (fetchdata.status === 201 && fetchdata.data.isSucces)
+          ) {
+            // setIsLoading(false)
+            // setErrosMade(false);
+            const userData = {
+              token: fetchdata.data.token,
+              userId: fetchdata.data.userId,
+              userRole: fetchdata.data.userRole,
+            };
+            loginHandler(userData);
+            navigate("/")
+        };
+      }
+      
+        const handleClickLogin = async e => {
+          e.preventDefault();
+          if (email.trim().length === 0 || password.trim().length === 0) {
+            // setErrosMade({
+            //   title: 'Error',
+            //   message: 'Field should not be empty',
+            // });
+            return;
+          }
+          if (!email.trim().includes('@')) {
+            // setErrosMade({
+            //   title: 'Error',
+            //   message: 'Invalid mail!',
+            // });
+            return;
+          }
+      
+          const zData = {
+            uniqueId: email,
+            password: password
+          };
+      
+          userLoginHandle(zData);
     };
+  
 
   return (
    
@@ -138,4 +204,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
