@@ -10,6 +10,7 @@ import PhoneVerification from "./components/SignUp/PhoneVerification";
 import Password from "./components/SignUp/Password";
 import NewRecord from "./NewRecord/NewRecord";
 import { UserAuthContextProvider } from "./store/UserAuthContext"
+import Privacy from "./components/PrivacyPolicy/Privacy";
 
 function App() {
   // const {setButtonIsShown} = useUserAuth();
@@ -35,6 +36,7 @@ function App() {
           <Route exact path ="/signup" element = {<SignUp/>}/>
           <Route exact path ="/phoneverification" element = {<PhoneVerification/>}/>
           <Route exact path ="/password" element = {<Password/>}/>
+          <Route exact path ="/privacypolicy" element = {<Privacy/>}/>
         </Routes>  
         </UserAuthContextProvider>        
       </Router>

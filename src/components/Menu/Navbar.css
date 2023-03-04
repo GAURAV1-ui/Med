@@ -10,7 +10,7 @@
   .Navbar > .nav-logo {
 	margin-left: 3rem;
 	width: 20%;
-	height: 50%;
+	height: 70%;
   }
   
   .Navbar > .nav-items > a {
@@ -39,7 +39,7 @@
   }
   
   .Navbar > .nav-items > a:hover::before {
-	width: 70%;
+	width: 0%;
   }
   
   .Navbar > .nav-toggle {

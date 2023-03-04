@@ -1,13 +1,20 @@
 import React from 'react'
 import styles from './CheckBox.module.css'
+import { useNavigate } from 'react-router-dom';
 const CheckBox = () => {
+
+  const navigate = useNavigate();
+  const onPrivacyHandler = () =>{
+    navigate("/privacypolicy")
+  }
+
   return (
     <div> 
     <div className={styles.loginCheckBox}>
         <div className={styles.checkbox1}>
         <input type="checkbox" id="checkbox1" name="checkbox1" value="checkbox1" required/>
         <label for="checkbox1"></label>
-        <span className={styles.text}>I agree with Terms of Service & Privacy Policy</span>
+        <button className={styles.button} onClick = {onPrivacyHandler}>I agree with Terms of Service & Privacy Policy</button>
         </div>
         <div className={styles.checkbox1}>
         <input type="checkbox" id="checkbox2" name="checkbox2" value="checkbox2"/>
