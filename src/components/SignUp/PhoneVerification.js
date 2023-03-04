@@ -140,6 +140,7 @@ const EmailVerification = (props) => {
         })
         .catch(err => {
           console.log(err);
+          toast.error("Email already exist")
           setFlag(false);
         });
     }
