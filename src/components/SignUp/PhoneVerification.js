@@ -114,6 +114,11 @@ const EmailVerification = (props) => {
         //     console.log(err);
         //     setFlag(false);
         //   })
+
+        if(email.length === 0){
+            toast.error("Email is empty");
+            return;
+        }
         const data = {
             uniqueId:email
         }
