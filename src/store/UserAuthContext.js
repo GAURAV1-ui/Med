@@ -9,6 +9,7 @@ export function UserAuthContextProvider({ children }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [agreement, setAgreement] = useState(false);
   let resetLogoutTimer;
 
   // useEffect(() => {
@@ -79,7 +80,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ token, loginHandler, logOutHandler,userLoggedIn,userTranslateInput,setUserTranslateInput, firstName,setFirstName,lastName,setLastName,email,setEmail}}
+      value={{ token, loginHandler, logOutHandler,userLoggedIn,userTranslateInput,setUserTranslateInput, firstName,setFirstName,lastName,setLastName,email,setEmail,agreement,setAgreement}}
     >
       {children}
     </userAuthContext.Provider>

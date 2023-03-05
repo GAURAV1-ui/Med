@@ -16,7 +16,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {loginHandler} = useUserAuth();
+    const {loginHandler,agreement,setAgreement} = useUserAuth();
     const navigate = useNavigate();
 
     const changeEmailHandler = (event) => {
@@ -84,17 +84,35 @@ const Login = () => {
         //   toast.error("Please enter valid number and password");
         // })
         const userLoginHandle = async authData => {
+            
+            if (password.length === 0 ||email.length === 0) {
+              console.log("Error")
+              toast.error("Please enter email and password");
+              return;
+              }
+         if (password.length<8 ||password.length === 0 ||email.length === 0){
+          toast.error("Please enter valid email and password");
+          return;
+         }
+         if(!agreement){
+          toast.error("Please agree terms and conditions");
+          return;
+         }
           // setIsLoading(true)
           const fetchdata = await axios({
             method: 'post',
             data: authData,
             url: `${baseUrl}/login`,
+          }).catch((err) =>{
+            // console.log(err.response.data.error);
+            toast.error(err.response.data.error);
           })
           // .then((res) =>{
           //   navigate("/");
           //   console.log(res);
+          //   toast.error(res)
           // }).catch((err)=>{
-          //   console.log(err);
+          //   toast.error(err.error);
           // })
           // if (
           //   fetchdata.status !== 200 ||
@@ -106,6 +124,7 @@ const Login = () => {
           //     message: fetchdata.data.message,
           //   });
           // }
+         
         
           if (
             fetchdata.status === 200 ||
@@ -119,6 +138,7 @@ const Login = () => {
               userRole: fetchdata.data.userRole,
             };
             loginHandler(userData);
+            setAgreement(false);
             navigate("/")
         };
       }

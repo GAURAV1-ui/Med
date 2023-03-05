@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 // import Button from '../UI/Button';
 import "./Navbar.css";
 import { useUserAuth } from "../../store/UserAuthContext";
@@ -53,7 +53,7 @@ const Navbar = () => {
  
   return (
     <div className="Navbar">   
-      <img className="nav-logo" src ={logo}/>
+      <Link to = "/"><img className="nav-logo" src ={logo}/></Link>
       <div className={`nav-items ${isOpen && "open"}`}>
         <p>{username}</p>
         <NavLink to="/" activeClassName = "">Portal</NavLink>

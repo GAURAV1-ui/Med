@@ -7,10 +7,10 @@
 	/* padding: 2rem; */
   }
 
-  .Navbar > .nav-logo {
+  .nav-logo {
 	margin-left: 3rem;
-	width: 20%;
-	height: 70%;
+	width: 30%;
+	height: 50%;
   }
   
   .Navbar > .nav-items > a {
@@ -61,7 +61,7 @@
   	color: white;
 }
   
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
 	
 	.Navbar > .nav-items {
 	  position: absolute;
@@ -78,7 +78,7 @@
 	  padding: 1rem;
 	 
 	}
-	.Navbar > .nav-logo {
+	.nav-logo {
 		margin-left: 1rem;
 		width: 30%;
 		height: 60%;
