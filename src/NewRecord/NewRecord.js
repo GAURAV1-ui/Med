@@ -117,7 +117,13 @@ const NewRecord = (props) => {
     navigate("/records");
   };
 
-
+  // const PdfData =
+  //     <div>
+  //   <h1>MedInclude</h1>
+  //   <p>{userTranslateInput}</p>
+  //   </div>;
+    
+  
 
 
   const onDownloadHandler = () => {
@@ -219,6 +225,7 @@ const NewRecord = (props) => {
        <div className={styles.modal}>
           <div className={styles.content}>
             <p>{userTranslateInput}</p>
+            
           </div>
         <div className={styles.modalButton}>
           <button className={styles.modalButton1} onClick={onSubmitTranslateHandler}>Save</button>
