@@ -17,7 +17,11 @@ import { serverTimestamp } from "firebase/firestore";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { RWebShare } from "react-web-share";
-import { jsPDF } from "jspdf";
+import * as htmlToImage from 'html-to-image';
+import FileSaver from 'file-saver';
+
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+// import { jsPDF } from "jspdf";
 // import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
 
@@ -117,20 +121,23 @@ const NewRecord = (props) => {
 
 
   const onDownloadHandler = () => {
-    const doc = new jsPDF();
-    // doc.setFont("helvetica", "bold");
-    doc.setFontSize(25);
-    doc.text("This is translated data", 20, 50);
-    doc.text(userTranslateInput, 20, 10);
-    doc.save("medinclude.pdf");
-    // const element = document.currentElement('a');
-    // const file = new Blob([userTranslateInput],{
-    //   type: "text/plain;charset=utf-8"
-    // });
-    // element.href = URL.createObjectURL(file);
-    // element.download = "NewDocument.txt";
-    // document.body.appendChild(element);
-    // element.click();
+    // const doc = new jsPDF();
+    // doc.setFontSize(25);
+    // doc.text("This is translated data", 20, 50);
+    // doc.text(userTranslateInput, 20, 10);
+    // doc.save("medinclude.pdf");
+    var blob = new Blob([userTranslateInput], {type: "text/plain;charset=utf-8"});
+    FileSaver.saveAs(blob, "medinclude.txt");
+    console.log("rsmhb")
+  //   htmlToImage.toBlob(userTranslateInput)
+  //   .then(function (blob) {
+  //   if (window.saveAs) {
+  //     window.saveAs(blob, 'my-node.png');
+  //   } else {
+  //    FileSaver.saveAs(blob, 'my-node.png');
+  //  }
+  // });
+
   }
 
 
@@ -163,7 +170,6 @@ const NewRecord = (props) => {
             value={inputSourceLanguage}
             onChange={onSubmitSourceLanguageHandler}>
               <option value={inputSourceLanguage}>English</option>
-
           </select>
         </div>
         <div className = {styles.select}>
@@ -203,14 +209,13 @@ const NewRecord = (props) => {
         {/* <button>Share on Web</button> */}
         <button className={styles.modalButton1} onClick={()=> console.log("Shared successfully")}>Share</button>
       </RWebShare>
-        
       <Popup
        contentStyle =
        {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
        trigger={<button className={styles.modalButton2}> Save </button>}
         modal nested>
         {
-                    close => (
+                    // close => (
        <div className={styles.modal}>
           <div className={styles.content}>
             <p>{userTranslateInput}</p>
@@ -220,7 +225,7 @@ const NewRecord = (props) => {
           <button className = {styles.modalButton2} onClick={onDownloadHandler}>Download</button>
         </div>
         </div>
-                    )
+                    // )
           }
             </Popup>
         
