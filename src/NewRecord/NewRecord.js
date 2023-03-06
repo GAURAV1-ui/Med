@@ -12,12 +12,10 @@ import { useUserAuth } from '../store/UserAuthContext';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextContainer from '../components/TextContainer/TextContainer';
-import { serverTimestamp } from "firebase/firestore"; 
-// import Modal from '../components/UI/Modal';
+// import { serverTimestamp } from "firebase/firestore"; 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { RWebShare } from "react-web-share";
-import * as htmlToImage from 'html-to-image';
 import FileSaver from 'file-saver';
 
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
@@ -31,10 +29,10 @@ const NewRecord = (props) => {
   const [userTranscribedInput, setUserTranscribedInput] = useState("");
   const [inputDestinationLanguage, setInputDestinationLanguage] = useState(data[0].code);
   const [inputSourceLanguage, setInputSourceLanguage] = useState("en");
-  const {userTranslateInput,setUserTranslateInput} = useUserAuth();
+  const {userTranslateInput,setUserTranslateInput,token} = useUserAuth();
 
   const navigate = useNavigate();
-  const usersCollectionRef = collection(db, "Users");
+  // const usersCollectionRef = collection(db, "Users");
 
   const userInputChangeHandler = (event) => {
     setUserInput(event.target.value);
@@ -96,8 +94,7 @@ const NewRecord = (props) => {
       }
     }).then((res) => {
       setUserTranslateInput(res.data.translatedText);
-      console.log(userTranslateInput);
-      // localStorage.setItem("download",JSON.stringify(userTranslateInput));
+      // console.log(userTranslateInput);
       console.log("Translate Response", res.data.translatedText);
     }).catch((err) => {
       console.log(err);
@@ -106,15 +103,32 @@ const NewRecord = (props) => {
     }
   }
 
-  const current = new Date();
-  const createdAt = serverTimestamp();
-  const date = current.toDateString();
+  // const current = new Date();
+  // const createdAt = serverTimestamp();
+  // const date = current.toDateString();
 
-  const onSubmitTranslateHandler = async (event) => {
+  const onSubmitTranslateHandler = (event) => {
     event.preventDefault();
-    await addDoc(usersCollectionRef, { createdAt:createdAt,date: date, translatedData:userTranslateInput });
-    setUserTranslateInput("");
-    navigate("/records");
+    axios({
+      method: 'post',
+      url: 'http://localhost:5001/api/notes',
+      data: {
+        title:"This is the title",
+        text:userTranslateInput
+      },
+      headers: {
+        'Authorization':`Bearer ${token}`
+      }
+    }).then((res) => {
+      // console.log(userTranslateInput);
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    })
+    // await addDoc(usersCollectionRef, { createdAt:createdAt,date: date, translatedData:userTranslateInput });
+    // setUserTranslateInput("");
+
+    // navigate("/records");
   };
 
   // const PdfData =
@@ -212,7 +226,6 @@ const NewRecord = (props) => {
         }}
         onClick={() => console.log("shared successfully!")}
       >
-        {/* <button>Share on Web</button> */}
         <button className={styles.modalButton1} onClick={()=> console.log("Shared successfully")}>Share</button>
       </RWebShare>
       <Popup
@@ -224,8 +237,7 @@ const NewRecord = (props) => {
                     // close => (
        <div className={styles.modal}>
           <div className={styles.content}>
-            <p>{userTranslateInput}</p>
-            
+            <p>{userTranslateInput}</p>            
           </div>
         <div className={styles.modalButton}>
           <button className={styles.modalButton1} onClick={onSubmitTranslateHandler}>Save</button>
