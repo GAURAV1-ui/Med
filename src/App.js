@@ -10,9 +10,14 @@ import PhoneVerification from "./components/SignUp/PhoneVerification";
 import Password from "./components/SignUp/Password";
 import NewRecord from "./NewRecord/NewRecord";
 import { UserAuthContextProvider } from "./store/UserAuthContext"
+import { useUserAuth } from "./store/UserAuthContext";
 import Privacy from "./components/PrivacyPolicy/Privacy";
+import ForgetPassword from "./components/SignUp/ForgetPassword";
 
 function App() {
+  const [isUserLoggedIn, setUserLoggedIn] = useState(); 
+
+  
   // const {setButtonIsShown} = useUserAuth();
   // const [translateData, setTranslateData] = useState("");
   // const onClick = (data) => {
@@ -21,7 +26,13 @@ function App() {
   //   console.log(data);
   //   console.log(translateData);
   // }
-  
+  // const logOutHandler = () => {
+  //   setUserLoggedIn(false);
+
+  //   localStorage.removeItem('jswToken');
+  //   localStorage.removeItem('userId');
+  //   localStorage.removeItem('expiryDate');
+  // };
 
  
   return (
@@ -37,6 +48,7 @@ function App() {
           <Route exact path ="/phoneverification" element = {<PhoneVerification/>}/>
           <Route exact path ="/password" element = {<Password/>}/>
           <Route exact path ="/privacypolicy" element = {<Privacy/>}/>
+          <Route exact path = "/forgetpassword" element = {<ForgetPassword/>}/>
         </Routes>  
         </UserAuthContextProvider>        
       </Router>

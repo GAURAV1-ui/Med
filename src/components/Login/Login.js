@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { useNavigate} from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 import Back from '../SignUp/Back';
 import Input from '../UI/Input/Input';
 import Card from '../UI/Card';
@@ -134,8 +134,7 @@ const Login = () => {
             // setErrosMade(false);
             const userData = {
               token: fetchdata.data.token,
-              userId: fetchdata.data.userId,
-              userRole: fetchdata.data.userRole,
+              userId: fetchdata.data._id,
             };
             loginHandler(userData);
             setAgreement(false);
@@ -206,8 +205,11 @@ const Login = () => {
     onChange ={changePasswordHandler}
     required
     />
-
+    <div className={styles.checkboxContainer}>
     <CheckBox/>
+    <Link to = "/forgetpassword" className={styles.forgetPassword}> Forgot password</Link>
+
+    </div>
     <div className={styles.button}>
     <Button type = "submit" onClick ={handleClickLogin}>Log In</Button>
     </div>

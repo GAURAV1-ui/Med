@@ -76,15 +76,16 @@ input[type=password]{
     color:#106e5b;
     font-weight: 500;
 }
-.phoneInput{
-    border:2px solid #1e8570;
-    padding: 15px;
-    border-radius: 5px;
-    width: 100%;
+.checkboxContainer{
+    display: flex;
+    justify-content:space-between;
 }
-.PhoneInputInput{
-    color:green !important;
-    height: 40px !important;
+
+.forgetPassword {
+    color: #106e5b;
+    margin-top: 1.2rem;
+    font-size: 18px;
+
 }
 
 @media (max-width: 700px) {

@@ -13,6 +13,7 @@ import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextContainer from '../components/TextContainer/TextContainer';
 // import { serverTimestamp } from "firebase/firestore"; 
+import { baseUrl } from '../api/axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { RWebShare } from "react-web-share";
@@ -111,7 +112,7 @@ const NewRecord = (props) => {
     event.preventDefault();
     axios({
       method: 'post',
-      url: 'http://localhost:5001/api/notes',
+      url: 'https://medinclude-api.onrender.com/api/notes',
       data: {
         title:"This is the title",
         text:userTranslateInput
@@ -120,15 +121,16 @@ const NewRecord = (props) => {
         'Authorization':`Bearer ${token}`
       }
     }).then((res) => {
-      // console.log(userTranslateInput);
+      setUserTranslateInput("");
+      navigate("/records");
       console.log(res);
     }).catch((err) => {
       console.log(err);
     })
     // await addDoc(usersCollectionRef, { createdAt:createdAt,date: date, translatedData:userTranslateInput });
-    // setUserTranslateInput("");
+    
 
-    // navigate("/records");
+    
   };
 
   // const PdfData =
