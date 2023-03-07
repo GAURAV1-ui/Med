@@ -1,9 +1,8 @@
 import React,{useState} from 'react'
-import {  useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
-import { useLocation } from 'react-router-dom';
 import Back from './Back';
 import styles from './Password.module.css';
 import { baseUrl } from '../../api/axios';
@@ -13,19 +12,22 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ForgetPassword = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const {token} = useUserAuth();
   const [forgetEmail, setForgetEmail] = useState("");
+  const [flag, setFlag] = useState(false);
 
-  const location = useLocation();
-  console.log(location);
   const changeForgetPasswordHandler = (event) => {
-
     setForgetEmail(event.target.value);
   }
   const onSubmitBtnClick = async (event) => {
+
     event.preventDefault();
-    axios({
+    if (forgetEmail === '') {
+      toast.error('Please enter your email');
+      return;
+    }
+    await axios({
       method: 'put',
       url: 'https://medinclude-api.onrender.com/api/forgot-password',
       data: {
@@ -35,10 +37,12 @@ const ForgetPassword = () => {
         'Authorization':`Bearer ${token}`
       }
     }).then((res) => {
-      console.log(res);
+      toast.success("Check your email for verification link");
     }).catch((err) => {
+      toast.error("Email doesnot exist")
       console.log(err);
     })
+
   };
   
 

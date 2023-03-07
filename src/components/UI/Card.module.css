@@ -1,5 +1,5 @@
    .card {
-    position: fixed;
+    position:relative;
     top: 15vh;
     left: 5%;
     width: 90%;
