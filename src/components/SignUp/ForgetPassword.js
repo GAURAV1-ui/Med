@@ -1,32 +1,46 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import Input from '../UI/Input/Input';
+import { useLocation } from 'react-router-dom';
 import Back from './Back';
 import styles from './Password.module.css';
 import { baseUrl } from '../../api/axios';
 import axios from 'axios';
+import { useUserAuth } from '../../store/UserAuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
+  const Navigate = useNavigate();
+  const {token} = useUserAuth();
+  const [forgetEmail, setForgetEmail] = useState("");
 
-
+  const location = useLocation();
+  console.log(location);
   const changeForgetPasswordHandler = (event) => {
-    setEmail(event.target.value);
+
+    setForgetEmail(event.target.value);
   }
-  const onSubmitBtnClick = async () => {
-    await axios
-      .post(`${baseUrl}/`, { email: email })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  const onSubmitBtnClick = async (event) => {
+    event.preventDefault();
+    axios({
+      method: 'put',
+      url: 'https://medinclude-api.onrender.com/api/forgot-password',
+      data: {
+        uniqueId:forgetEmail
+      },
+      headers: {
+        'Authorization':`Bearer ${token}`
+      }
+    }).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    })
   };
+  
 
   return (
     <div>
@@ -39,7 +53,7 @@ const ForgetPassword = () => {
         <div className={styles.heading}>
             <h2>Enter your email to change your password</h2>
         </div>
-        <form onSubmit={onSubmitBtnClick}>
+        <form >
         <Input 
         id = "email" 
         type="email" 
@@ -52,7 +66,7 @@ const ForgetPassword = () => {
         </div>
         <div className={styles.button}>
         <Button 
-        type="submit">Confirm Password</Button>
+        type="submit" onClick={onSubmitBtnClick}>Confirm Password</Button>
         </div>
         </form> 
     </Card>

@@ -84,13 +84,16 @@ input[type=password]{
 .forgetPassword {
     color: #106e5b;
     margin-top: 1.2rem;
-    font-size: 18px;
-
+    font-size: 16px;
 }
 
 @media (max-width: 700px) {
    .button button {
-    width: 100%;
-   
+    width: 100%;  
    }
+
+   .checkboxContainer{
+    display: flex;
+    flex-direction: column;
+}
 }

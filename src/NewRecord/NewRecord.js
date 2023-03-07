@@ -151,6 +151,9 @@ const NewRecord = (props) => {
     var blob = new Blob([userTranslateInput], {type: "text/plain;charset=utf-8"});
     FileSaver.saveAs(blob, "medinclude.txt");
     console.log("rsmhb")
+    
+      
+
   //   htmlToImage.toBlob(userTranslateInput)
   //   .then(function (blob) {
   //   if (window.saveAs) {
@@ -243,7 +246,7 @@ const NewRecord = (props) => {
           </div>
         <div className={styles.modalButton}>
           <button className={styles.modalButton1} onClick={onSubmitTranslateHandler}>Save</button>
-          <button className = {styles.modalButton2} onClick={onDownloadHandler}>Download</button>
+          <button className = {styles.modalButton2} onClick={onDownloadHandler} >Download</button>
         </div>
         </div>
                     // )

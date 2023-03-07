@@ -13,9 +13,11 @@ import { UserAuthContextProvider } from "./store/UserAuthContext"
 import { useUserAuth } from "./store/UserAuthContext";
 import Privacy from "./components/PrivacyPolicy/Privacy";
 import ForgetPassword from "./components/SignUp/ForgetPassword";
+import ForgetPasswordForm from "./components/SignUp/ForgetPasswordForm";
 
 function App() {
   const [isUserLoggedIn, setUserLoggedIn] = useState(); 
+  
 
   
   // const {setButtonIsShown} = useUserAuth();
@@ -34,6 +36,8 @@ function App() {
   //   localStorage.removeItem('expiryDate');
   // };
 
+  
+
  
   return (
     <main>    
@@ -49,6 +53,7 @@ function App() {
           <Route exact path ="/password" element = {<Password/>}/>
           <Route exact path ="/privacypolicy" element = {<Privacy/>}/>
           <Route exact path = "/forgetpassword" element = {<ForgetPassword/>}/>
+          <Route exact path = "/auth/password/reset/:token" element = {<ForgetPasswordForm/>}/>
         </Routes>  
         </UserAuthContextProvider>        
       </Router>
