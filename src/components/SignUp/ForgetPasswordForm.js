@@ -18,18 +18,18 @@ const ForgetPasswordForm = () => {
     const changeConfirmPasswordHandler = (event) => {
         setNewPassword(event.target.value);
     }
-
+    const param = useParams();
+    console.log(param.token);
     // const location = useLocation();
     //     console.log(location);
 
     const onSubmitPasswordBtnClick = async (event) => {
         event.preventDefault();
-       console.log("apple");
     await axios({
         method: 'put',
         url: 'https://medinclude-api.onrender.com/api/reset-password',
         data: {
-          resetPasswordLink:`${token}`,
+          resetPasswordLink:param.token,
           newPassword: newPassword,
         },
         headers: {
