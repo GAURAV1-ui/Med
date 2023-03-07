@@ -65,9 +65,13 @@ const TextContainer2 = () => {
             <Popup 
               contentStyle =
               {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
-              trigger = {<button>{(`${data.text}`).slice(0,120)}</button>} 
+              trigger = {<section>{(`${data.text}`).slice(0,120)}</section>} 
               modal nested>{
-                <p>{data.text}</p>
+                <div>
+                <h3>Test Result {index+1}</h3>
+                <br/>
+                <section>{data.text}</section>
+                </div>
              }
             </Popup>
           </Card1>
