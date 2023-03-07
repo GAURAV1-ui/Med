@@ -38,25 +38,35 @@ const ForgetPassword = () => {
       }
     }).then((res) => {
       toast.success("Check your email for verification link");
+      setFlag(true);
     }).catch((err) => {
       toast.error("Email doesnot exist")
       console.log(err);
     })
-
   };
+
+  const clickNavigateHandler = () => {
+    navigate("/login");
+  }
   
 
   return (
     <div>
         <Back/>
     <Card>
+    { !flag &&
         <div>
+          <div>
+          
             <div className= {styles.polygon}></div>
             <hr className= {styles.line}/>
         </div>
         <div className={styles.heading}>
             <h2>Enter your email to change your password</h2>
         </div>
+        </div>
+}
+        { !flag &&
         <form >
         <Input 
         id = "email" 
@@ -73,6 +83,13 @@ const ForgetPassword = () => {
         type="submit" onClick={onSubmitBtnClick}>Confirm Password</Button>
         </div>
         </form> 
+} 
+    {flag &&
+    <div className={styles.ForgetPassword}>   
+      <p>Check your email for verification link</p>
+      <Button onClick = {clickNavigateHandler}>Login</Button>
+    </div>
+    }
     </Card>
     </div>
   )

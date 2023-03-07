@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import Card1 from '../UI/Card1';
 import { useUserAuth } from '../../store/UserAuthContext';
+import { Link } from 'react-router-dom';
 // import {db} from '../../firebase';
 // import {collection,getDocs} from 'firebase/firestore'
 // import { query, orderBy} from "firebase/firestore";
@@ -43,23 +44,9 @@ const TextContainer2 = () => {
 
     // useEffect(() => {
     //   handleIdClick();
-    //  },[users]);
+    //  },[]);
 
-    const handleIdClick = (event) => {
-      console.log("apple");
-      axios({
-        method:'get',
-        url:"https://medinclude-api.onrender.com/api/note/64058c24f10608e0c726c37b",
-        headers:{
-          'Authorization':`Bearer ${token}`
-        }
-      }).then((res) => {
-          console.log("res",res);
-          setUsers(res);
-        }).catch((err) => {
-          console.log(err);
-        })
-    }
+
     
 
   return (
@@ -74,12 +61,13 @@ const TextContainer2 = () => {
               </div>
             {new Date(`${data.createdAt}`).toDateString()}
             </div>
-          <br/>
-            <Popup onClick={handleIdClick}
+          <br/>            
+            <Popup 
               contentStyle =
               {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
-              trigger = {<button  id = {data._id} >{(`${data.text}`).slice(0,120)}</button>} 
+              trigger = {<button>{(`${data.text}`).slice(0,120)}</button>} 
               modal nested>{
+                <p>{data.text}</p>
              }
             </Popup>
           </Card1>
