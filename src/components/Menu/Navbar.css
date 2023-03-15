@@ -1,5 +1,5 @@
 .Navbar {
-	height: 60px;
+	height: 80px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -9,8 +9,8 @@
 
   .nav-logo {
 	margin-left: 3rem;
-	width: 30%;
-	height: 50%;
+	width: 70%;
+	height: 35%;
   }
   
   .Navbar > .nav-items > a {
@@ -79,9 +79,9 @@
 	 
 	}
 	.nav-logo {
-		margin-left: 1rem;
-		width: 30%;
-		height: 60%;
+		margin-left: 0.1rem;
+		width: 50%;
+		height: 70%;
 	  }
 	.Navbar > .nav-items > a::before {
 		background: transparent;

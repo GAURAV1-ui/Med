@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import {collection,addDoc} from "firebase/firestore";
-import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/SignUp/Back';
 import styles from './NewRecord.module.css'
@@ -11,8 +9,7 @@ import axios from "axios";
 import { useUserAuth } from '../store/UserAuthContext';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TextContainer from '../components/TextContainer/TextContainer';
-// import { serverTimestamp } from "firebase/firestore"; 
+import TextContainer from '../components/TextContainer/TextContainer'; 
 import { baseUrl } from '../api/axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -133,14 +130,6 @@ const NewRecord = (props) => {
     
   };
 
-  // const PdfData =
-  //     <div>
-  //   <h1>MedInclude</h1>
-  //   <p>{userTranslateInput}</p>
-  //   </div>;
-    
-  
-
 
   const onDownloadHandler = () => {
     // const doc = new jsPDF();
@@ -210,11 +199,13 @@ const NewRecord = (props) => {
           </select>
         </div>
       </div>
+      <div className={styles.transcribed_data}>
       <textarea
         name='transcribed_data'
         placeholder='Your transcribed record shows up here'
         value={userTranscribedInput}
       />
+      </div>
       <div className={`${styles.button} ${styles.button1}`}>
         <Button onClick={onSubmitTranscribedHandler}>Translate</Button>
       </div>

@@ -42,13 +42,6 @@ const TextContainer2 = () => {
         })
     }, []);
 
-    // useEffect(() => {
-    //   handleIdClick();
-    //  },[]);
-
-
-    
-
   return (
     <>
 

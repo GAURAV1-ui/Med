@@ -1,15 +1,16 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
-import TextContainer1 from '../components/TextContainer/TextContainer1';
+import { Link } from "react-router-dom";
+// import TextContainer1 from '../components/TextContainer/TextContainer1';
 import styles from './Portal.module.css';
-import Button from '../components/UI/Button';
+// import Button from '../components/UI/Button';
 import Navbar from '../components/Menu/Navbar';
 import med from '../Images/2.jpg';
 import About from './About';
 
 import { useUserAuth } from "../store/UserAuthContext";
+import Contact from './Contact';
 
-const Portal = (props) => {
+const Portal = () => {
   const {userLoggedIn} = useUserAuth();
   // const navigate = useNavigate();
   // const {currentUser} = useUserAuth();
@@ -51,7 +52,7 @@ const Portal = (props) => {
     // </div>
     // </div>
     <div>
-      <Navbar />
+      <Navbar/>
       <div className={styles.heading}>
       <h1>Your health in your hands</h1>
       </div>
@@ -83,7 +84,6 @@ const Portal = (props) => {
               </div>
               }
             </div>
-
             <div className={`${styles.float_child} ${styles.right}`}>
               <img className={styles.home_img} src={med} alt="" />
             </div>
@@ -91,6 +91,12 @@ const Portal = (props) => {
         </div>
       </div>
       <About/>
+      <Contact/>
+      <div className={styles.footer}>
+        <Link to="/">Security and Trust</Link>
+        <Link to="/">Terms of Use</Link>
+        <Link to="/">Privacy Policy</Link>
+      </div>
     </div>
   )
 }

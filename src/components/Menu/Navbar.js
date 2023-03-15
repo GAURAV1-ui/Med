@@ -4,7 +4,7 @@ import { useNavigate,Link } from 'react-router-dom';
 // import Button from '../UI/Button';
 import "./Navbar.css";
 import { useUserAuth } from "../../store/UserAuthContext";
-import logo from '../../Images/logo.png'
+import logo from '../../Images/logo.webp'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

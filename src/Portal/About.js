@@ -12,8 +12,7 @@ const About = () => {
         <div className={styles.about_container}>
           <div className={styles.float_container}>
             <div className={`${styles.float_child} ${styles.left}`}>
-              <h1>
-                
+              <h1> 
                 About MedInclude
               </h1>
               <br/>
@@ -23,10 +22,8 @@ const About = () => {
                 MedInclude is a secure AI-based data processing solution that can help healthcare institutions transcribe patient notes to lay terminology in real time and without losing the essence of the information.
                 <br/>
                 <br/>
-​                  Patients can access the transcribed notes from their medical visit in multiple languages post consult, making it the ideal solution to aid information retention.</p>
-              
+​                  Patients can access the transcribed notes from their medical visit in multiple languages post consult, making it the ideal solution to aid information retention.</p>             
             </div>
-
             <div className={`${styles.float_child} ${styles.right}`}>
               <img className={styles.about_img} src={med} alt="" />
             </div>
