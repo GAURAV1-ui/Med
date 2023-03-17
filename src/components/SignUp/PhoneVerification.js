@@ -167,6 +167,9 @@ const EmailVerification = (props) => {
         .then(result => {
           console.log(result);
           navigate("/password")
+        }).catch((err)=>{
+            console.log(err);
+        })
         // axios({
         //     method: 'post',
         //     url: 'https://medinclude-api.onrender.com/api/verify-otp',
@@ -183,9 +186,7 @@ const EmailVerification = (props) => {
         //   })
 
 
-        }).catch((err)=>{
-            console.log(err);
-        })
+        
     }
     }
   return (

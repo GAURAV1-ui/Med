@@ -173,7 +173,7 @@ const Login = () => {
     <div>
     <Back/>
 <Card>
-<div className={styles.loginHeading}>
+    <div className={styles.loginHeading}>
          <h1>MedInclude</h1>
         <h5>Simple. Understandable. Accessible</h5>
     </div>

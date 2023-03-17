@@ -166,12 +166,14 @@ const NewRecord = (props) => {
         </div>
         <Dates />
       </div>
+      <div className={styles.transcribed_data}>
       <textarea
         name='userInput'
         placeholder="Enter or paste your records here"
         value={userInput}
         onChange={userInputChangeHandler}
       />
+      </div>
       <div className={styles.button}>
         <Button onClick={onSubmitHandler}>Upload</Button>
       </div>

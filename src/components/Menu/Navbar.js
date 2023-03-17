@@ -9,6 +9,7 @@ import logo from '../../Images/logo.webp'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
+  const [open, setOpen] = React.useState(false);
   const {logOutHandler,userLoggedIn} = useUserAuth();
   const navigate = useNavigate();
  
@@ -31,6 +32,11 @@ const Navbar = () => {
     //     });
     //   }
     // }, [currentUser]);
+
+    const handleOpen = () => {
+      setOpen(!open);
+    };
+  
 
     const clickLogout = async () => {
       await logOutHandler();
@@ -58,7 +64,14 @@ const Navbar = () => {
         <p>{username}</p>
         <NavLink to="/" activeClassName = "">Portal</NavLink>
         {userLoggedIn && <NavLink to="/records" activeClassName = "">Record</NavLink>}
-        {userLoggedIn && <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>}
+        {/* {userLoggedIn && <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>} */}
+        <div className="dropdown">
+        <button className="dropbtn">Dropdown</button>
+        <div className="dropdown-content">
+          <NavLink to="/newrecord">Add</NavLink>
+          <NavLink to="/records">Records</NavLink>
+        </div>
+      </div>
         {userLoggedIn && <button onClick={clickLogout}>
            Logout
         </button>}

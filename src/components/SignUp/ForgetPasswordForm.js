@@ -55,12 +55,10 @@ const ForgetPasswordForm = () => {
       }).then((res) => {
         console.log(res);
         localStorage.removeItem('jswToken');
-        navigate("/login");
       }).catch((err) => {
         toast.error("Link expired please try again")
         console.log(err);
-      })
-      
+      })     
     }
  
   return (
