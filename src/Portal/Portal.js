@@ -9,7 +9,7 @@ import About from './About';
 
 import { useUserAuth } from "../store/UserAuthContext";
 import Contact from './Contact';
-import Navigation from '../components/Menu/Navigation';
+
 
 const Portal = () => {
   const {userLoggedIn} = useUserAuth();
@@ -53,7 +53,7 @@ const Portal = () => {
     // </div>
     // </div>
     <div>
-      <Navigation/>
+      <Navbar/>
       <div className={styles.heading}>
       <h1>Your health in your hands</h1>
       </div>
