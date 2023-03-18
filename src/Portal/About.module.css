@@ -21,6 +21,10 @@
   .about_img {
     width: 85%;
     margin-top: 1rem;
+    border-radius: 5px;
+    /* border-bottom:2rem solid #015243;
+    border-right: 2rem solid #015243;
+    border-top: 2rem solid #015243; */
   }
   
   .float_child { 

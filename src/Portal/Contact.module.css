@@ -62,8 +62,10 @@
   
   .firstName input[type=text] {
     background-color: rgb(230, 183, 126);
+    width: 88%;
     height: 30px;
     border: none;
+    padding: 0.6rem;
     margin-top: 0.5rem;
     border-bottom:2px solid #015243;
   }
@@ -71,6 +73,8 @@
     background-color: rgb(230, 183, 126);
     width: 84%;
     height: 30px;
+    font-size: 18px;
+    padding: 0.6rem;
     border: none;
     margin-top: 0.5rem;
     border-bottom:2px solid #015243;
@@ -79,9 +83,11 @@
     margin-top: 1rem;
   }
   .message textarea {
+    font-size: 18px;
     width: 84%;
     height: 100px;
     margin-top: 0.5rem;
+    padding: 0.8rem;
     background-color: rgb(230, 183, 126);
     margin-bottom: 2rem;
     border-bottom:2px solid #015243;

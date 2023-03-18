@@ -14,6 +14,8 @@ import { useUserAuth } from "./store/UserAuthContext";
 import Privacy from "./components/PrivacyPolicy/Privacy";
 import ForgetPassword from "./components/SignUp/ForgetPassword";
 import ForgetPasswordForm from "./components/SignUp/ForgetPasswordForm";
+import Contact from "./Portal/Contact";
+import Navigation from "./components/Menu/Navigation";
 
 function App() {
   const [isUserLoggedIn, setUserLoggedIn] = useState(); 
@@ -40,7 +42,7 @@ function App() {
 
  
   return (
-    <main>    
+    <main> 
       <Router>
       <UserAuthContextProvider>
         <Routes>
@@ -54,6 +56,7 @@ function App() {
           <Route exact path ="/privacypolicy" element = {<Privacy/>}/>
           <Route exact path = "/forgetpassword" element = {<ForgetPassword/>}/>
           <Route exact path = "/auth/password/reset/:token" element = {<ForgetPasswordForm/>}/>
+          <Route exact path = "#contact" element = {<Contact/>}/>
         </Routes>  
         </UserAuthContextProvider>        
       </Router>

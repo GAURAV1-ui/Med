@@ -1,103 +1,31 @@
-import React, {useContext,useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-// import AuthContext from "../../auth/authContext";
-import { useUserAuth } from "../../store/UserAuthContext";
+import { Link } from "react-router-dom";
 import ExpandMenu from "./ExpandMenu";
-import logo from "../../Images/logo.webp";
-const Drawer = ({ isOpen, toggleDrawer }) => {
-  const {logOutHandler,userLoggedIn} = useUserAuth();
-  const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-  const clickLogoutHandler = async () => {
-    await logOutHandler();
-    navigate("/");
-  };
-  const clickLoginHandler = () => {
-    navigate("/login")
-  }
-  const navigateHomeHandler = () => {
-    navigate("/")
-  }
-
+const Drawer = ({ isOpen, toggleDrawer, routes }) => {
   return (
     <>
-      {isOpen && <Backdrop onClick = {function() {toggleDrawer();toggleMenu()}}/>}
+      {isOpen && <Backdrop onClick={toggleDrawer} />}
       <SDrawer isOpen={isOpen}>
-      
         <RightNav>
-        <Image src={logo} alt="" onClick = {function() {toggleDrawer();navigateHomeHandler()}}/>
+          <SNavbarBrand>LOGO</SNavbarBrand>
           <NavRoutes>
-                {/* <NavRoute
-                  onClick={toggleDrawer}
-                  to="/"
-                  key="Home"
-                >
-                  Home
-                </NavRoute> */}
-                {userLoggedIn && (
+            {routes.map((route) => {
+              if (route.subRoutes) {
+                return <ExpandMenu route={route} key={route.name} />;
+              }
+              return (
                 <NavRoute
                   onClick={toggleDrawer}
-                  to="/user-dashboard"
-                  key="dashboard"
+                  to={route.link}
+                  key={route.name}
                 >
-                  Dashboard
+                  {route.name}
                 </NavRoute>
-                )}
-                <NavRoute
-                  onClick={toggleDrawer}
-                  to="/workshops"
-                  key="Workshops"
-                >
-                  Workshops
-                </NavRoute>
-                <NavRoute
-                  onClick={toggleDrawer}
-                  to="/about"
-                  key="About Us"
-                >
-                  About Us
-                </NavRoute>
-                <NavRoute
-                  onClick={toggleDrawer}
-                  to="/faq"
-                  key="faq"
-                >
-                  FAQ
-                </NavRoute>
-                <NavRoute
-                  onClick={toggleDrawer}
-                  to="/our-team"
-                  key="our-team"
-                >
-                  Our Team
-                </NavRoute>
-
-                <ExpandMenu toggleDrawer={toggleDrawer}/>
-                
-                {!userLoggedIn&& (
-                <NavRoute
-                  onClick={clickLoginHandler}
-                  to="/sign-in"
-                  key="sign-in"
-                >
-                  Login
-                </NavRoute>
-                )}
-                {userLoggedIn && (
-                <NavRoute
-                  onClick={clickLogoutHandler}
-                  to="/sign-up"
-                  key="sign-up"
-                >
-                  Logout
-                </NavRoute>
-                )}
-                
-          </NavRoutes>          
+              );
+            })}
+          </NavRoutes>
+          <LoginButton>Login</LoginButton>
         </RightNav>
       </SDrawer>
     </>
@@ -105,16 +33,8 @@ const Drawer = ({ isOpen, toggleDrawer }) => {
 };
 
 export default Drawer;
-// const SNavbarBrand = styled.h2`
-//   font-size: 1.5rem;
-// `;
-const Image = styled.img`
-    padding: 1rem;
-    width:80%;
-    cursor: pointer;
-    @media (max-width: 600px) {
-      width: 90%;
-    }
+const SNavbarBrand = styled.h2`
+  font-size: 3rem;
 `;
 const Backdrop = styled.div`
   height: 100%;
@@ -130,80 +50,39 @@ const SDrawer = styled.div`
   z-index: 150;
   position: absolute;
   top: 0;
-  color: white;
-  height:100%;
-  width: 21%;
-  overflow:hidden;
-  background-color: black;
+  height: 100vh;
+  width: 60%;
+  background-color: white;
   transition: 0.3s ease;
-
   transform: translateX(${(props) => (props.isOpen ? "0" : "-100%")});
-  @media (max-width: 1200px){
-    width:35%;
-  }
-  @media (max-width: 600px){
-    width:60%;
-  }
 `;
 
 const RightNav = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; 
-  
-  font-size: 1rem;
+  gap: 2rem;
   padding: 1rem;
 `;
-const NavRoutes = styled.div`
-color: white;
-font-size: 1rem;
-padding: 0.5rem;
-
-`;
+const NavRoutes = styled.div``;
 const NavRoute = styled(Link)`
   display: flex;
   text-decoration: none;
-  color: white;
-  font-size: 1.5rem;
+  color: black;
+  font-size: 2.5rem;
   padding: 0.5rem;
-
-  &:hover {
-    transition: 0.3s ease-in;
-    color: black;
-    background-color: #68fe04;
-    border-radius: 5px;
-  }
 `;
 
-// const LoginButton = styled.button`
-//   padding: 0.7rem 3rem;
-//   background-color: white;
-//   border: 1px solid black;
-//   border-radius: 1rem;
-//   transition: 0.3s ease;
-//   align-self: flex-start;
-//   &:hover {
-//     transition: 0.3s ease;
-//     border: 1px solid transparent;
-//     background-color: gray;
-//      color:white;
-//     box-shadow: 0px 0px 10px gray;
-//   }
-// `;
-// const LoginButton = styled.button`
-//   padding: 0.6rem 2.5rem;
-//   margin-left: 0.6rem;
-//   font-size: 18px;
-//   background-color: #68fe04;
-//   border: 1px solid black;
-//   border-radius: 0.5rem;
-//   transition: 0.3s ease;
-//   align-self: flex-start;
-  
-//   &:hover {
-//     transition: 0.3s ease;
-//     color: #011E05;
-//     border: 1px solid transparent;
-//     box-shadow: 0px 0px 10px black;
-//   }
-// `;
+const LoginButton = styled.button`
+  padding: 0.7rem 3rem;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3rem;
+  transition: 0.3s ease;
+  align-self: flex-start;
+  &:hover {
+    transition: 0.3s ease;
+    border: 1px solid transparent;
+    background-color: yellow;
+    box-shadow: 0px 0px 10px yellow;
+  }
+`;

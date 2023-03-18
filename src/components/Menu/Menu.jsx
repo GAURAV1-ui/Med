@@ -1,19 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const Menu = () => {
+const Menu = ({ route }) => {
   return (
     <SMenu>
-      <MenuButton>Records</MenuButton>
+      <MenuButton>{route.name}</MenuButton>
       <SubRoutesContainer>
-      <SubRoute to= "/events/Aarambh" 
-          key="Arambh">
-            NeW records
+        {route.subRoutes.map((subRoute) => (
+          <SubRoute to={subRoute.link} key={subRoute.name}>
+            {subRoute.name}
           </SubRoute>
-          <SubRoute to= "/events/plexus" 
-          key="plexus">
-            Simplified records
-          </SubRoute>
+        ))}
       </SubRoutesContainer>
     </SMenu>
   );
@@ -21,9 +18,8 @@ const Menu = () => {
 
 export default Menu;
 const SubRoutesContainer = styled.div`
-  background-color:black;
   position: absolute;
-  min-width: 10rem;
+  min-width: 32rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -31,14 +27,12 @@ const SubRoutesContainer = styled.div`
   left: -1rem;
   visibility: hidden;
   opacity: 0;
-  z-index: 1000;
   border-radius: 1rem;
   transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
 `;
 const SMenu = styled.div`
   position: relative;
   display: inline-block;
-  z-index: 80;
   &:hover ${SubRoutesContainer} {
     visibility: visible;
     opacity: 1;
@@ -47,24 +41,24 @@ const SMenu = styled.div`
 `;
 
 const MenuButton = styled.div`
-  padding: 0.5rem;
+  padding: 1rem;
   &:hover {
-    transition: 0.3s ease-in;
+    transition: 0.5s ease;
     color: black;
-    background-color: #68fe04;
+    background-color: white;
+    box-shadow: 0px 0px 10px white;
   }
 `;
 
 const SubRoute = styled(Link)`
   text-decoration: none;
-  color: white;
+  color: black;
   padding: 1rem;
   border-radius: 0.5rem;
   transition: 0.3s ease-in;
-  
   &:hover {
     transition: 0.3s ease-in;
-    color: black;
-    background-color: #68fe04;
+    color: #6f07f6;
+    background-color: #d0a7fc;
   }
 `;

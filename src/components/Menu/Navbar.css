@@ -194,8 +194,7 @@
 	  }
 
 	  .dropdown button{
-		margin-bottom: 1rem;
-		position: relative;
-		left:-10px;
+		margin: 0.5rem 0;
+		text-align: left;
 	  }
   }

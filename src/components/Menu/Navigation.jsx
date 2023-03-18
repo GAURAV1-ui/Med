@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
-import Navbar1 from "./Navbar1";
-// import styled from "styled-components";
+import Navbar from "./Navbar";
+import { routes } from "./constant";
 import Drawer from "./Drawer";
 
 const Navigation = () => {
@@ -13,11 +12,10 @@ const Navigation = () => {
 
   return (
     <>
-      <Drawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
-      <Navbar1 toggleDrawer={toggleDrawer} />
+      <Drawer routes={routes} isOpen={isOpen} toggleDrawer={toggleDrawer} />
+      <Navbar routes={routes} toggleDrawer={toggleDrawer} />
     </>
   );
 };
 
 export default Navigation;
-

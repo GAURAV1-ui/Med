@@ -1,14 +1,55 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Contact.module.css';
 import med from '../Images/2.jpg';
 import Button from '../components/UI/Button';
+import axios from 'axios';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
-    const [name, setName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setlastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
-    const onChangeHandler = (event) => {
-        setName(event.target.value);
+
+    const navigate = useNavigate();
+
+    const onChangeFirstName = (event) => {
+        setFirstName(event.target.value);
     }
+    const onChangeLastName = (event) => {
+        setlastName(event.target.value);
+    }
+    const onChangeEmail = (event) => {
+      setEmail(event.target.value);
+  }
+  const onChangeMessage = (event) => {
+    setMessage(event.target.value);
+}
+
+    const onContactHandler = () => {
+      axios({
+        method: 'post',
+        url: 'https://medinclude-api.onrender.com/api/contact',
+        data:{
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: message,
+        },
+      }).then((res) => {
+        toast.success(res.data);
+        setFirstName("");
+        setlastName("");
+        setEmail("");
+        setMessage("");
+      }).catch((err) => {
+        toast.error(err);
+      })
+    }
+
   return (
 
     <div className={styles.about_background}>
@@ -31,16 +72,16 @@ const Contact = () => {
             <input 
             type="text"
             id="text"
-            value={name}
-            onChange={onChangeHandler}/> 
+            value={firstName}
+            onChange={onChangeFirstName}/> 
             </div>
             <div className={styles.firstName}>
             <label>Last Name</label>  
             <input 
             type="text"
             id="text"
-            value={name}
-            onChange={onChangeHandler}/> 
+            value={lastName}
+            onChange={onChangeLastName}/> 
             </div>
             </div>
             <div className={styles.lastName}>
@@ -48,19 +89,22 @@ const Contact = () => {
             <input 
             type="email"
             id="email"
-            value={name}
-            onChange={onChangeHandler}/> 
+            value={email}
+            onChange={onChangeEmail}
+            required />
+            
             </div>
             <div className={styles.message}>
             <label >Add message here</label>
             <textarea
               name='userInput'
-              value=""
-              onChange=""
+              value={message}
+              onChange= {onChangeMessage}
               />
+              <ToastContainer/>
               </div>
               <div className={styles.contactButton}>
-              <Button>Submit</Button>
+              <Button onClick = {onContactHandler}>Submit</Button>
               </div>
             </div>
             </div>
@@ -68,7 +112,10 @@ const Contact = () => {
         </div>
         
       </div>
-      
+
+
+
+
 </div>
   )
 }

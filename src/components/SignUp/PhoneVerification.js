@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const EmailVerification = (props) => {    
+const EmailVerification = () => {    
 
     const {firstName,email,setEmail} = useUserAuth();
     const [userOtp, setUserOtp] = useState('');

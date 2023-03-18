@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate,Link } from 'react-router-dom';
 // import Button from '../UI/Button';
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import "./Navbar.css";
 import { useUserAuth } from "../../store/UserAuthContext";
 import logo from '../../Images/logo.webp'
@@ -62,6 +63,7 @@ const Navbar = () => {
       <Link to = "/"><img className="nav-logo" src ={logo}/></Link>
       <div className={`nav-items ${isOpen && "open"}`}>
         <p>{username}</p>
+        <AnchorLink href='#about'>About</AnchorLink>
         <NavLink to="/" activeClassName = "">Portal</NavLink>
         {userLoggedIn && <NavLink to="/records" activeClassName = "">Record</NavLink>}
         {/* {userLoggedIn && <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>} */}
@@ -72,6 +74,7 @@ const Navbar = () => {
           <NavLink to="/records">Records</NavLink>
         </div>
       </div>
+      <AnchorLink href='#contact'>Contact</AnchorLink>
         {userLoggedIn && <button onClick={clickLogout}>
            Logout
         </button>}
