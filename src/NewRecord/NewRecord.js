@@ -15,6 +15,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { RWebShare } from "react-web-share";
 // import EmailShare from 'react-email-share-link'
+import { FacebookShareButton, FacebookIcon } from "react-share"
 import {EmailShareButton} from "react-share";
 import ReactToPrint from "react-to-print";
 import {EmailIcon} from "react-share"; 
@@ -249,17 +250,17 @@ const NewRecord = (props) => {
         modal nested>
         {
        <div className={styles.modal}>
-          <div className={styles.content}>
+          {/* <div className={styles.content}>
             <p>Share your content</p>            
-          </div>
+          </div> */}
         <div className={styles.modalButton}>
         {/* <button className={styles.modalButton1} onClick={onShareHandler}>Share</button> */}
-        <EmailShareButton 
-            // url={`www.ihatereading.in/createrepo?framework=Create-React-App&repoId=${repoId}`}
-            title="Check out this iHateReading custom repository "
-        >
-            {/* <AiFillLinkedin style={{ opacity: '0.5'}} size={18} /> */}
-        </EmailShareButton>
+        <FacebookShareButton 
+        url="https://www.facebook.com/"
+        quote="I am not good">
+        <FacebookIcon logoFillColor="white" />
+        </FacebookShareButton>
+
         <ReactToPrint
           trigger={() => <Button>Print this out!</Button>}
           content={() => userTranslateInput}
