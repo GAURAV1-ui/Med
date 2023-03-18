@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Back from '../components/SignUp/Back';
 import styles from './NewRecord.module.css'
@@ -14,6 +14,10 @@ import { baseUrl } from '../api/axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { RWebShare } from "react-web-share";
+// import EmailShare from 'react-email-share-link'
+import {EmailShareButton} from "react-share";
+import ReactToPrint from "react-to-print";
+import {EmailIcon} from "react-share"; 
 import FileSaver from 'file-saver';
 
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
@@ -28,6 +32,7 @@ const NewRecord = (props) => {
   const [inputDestinationLanguage, setInputDestinationLanguage] = useState(data[0].code);
   const [inputSourceLanguage, setInputSourceLanguage] = useState("en");
   const {userTranslateInput,setUserTranslateInput,token} = useUserAuth();
+  // let componentRef = useRef();
 
   const navigate = useNavigate();
   // const usersCollectionRef = collection(db, "Users");
@@ -91,6 +96,7 @@ const NewRecord = (props) => {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       }
     }).then((res) => {
+      alert(JSON.stringify(res.data))
       setUserTranslateInput(res.data.translatedText);
       // console.log(userTranslateInput);
       console.log("Translate Response", res.data.translatedText);
@@ -154,6 +160,14 @@ const NewRecord = (props) => {
 
   }
 
+  // const onShareHandler = () => {
+      
+  // }
+
+  // const onPrintHandler = () => {
+
+  // }
+
 
 
 
@@ -201,11 +215,13 @@ const NewRecord = (props) => {
           </select>
         </div>
       </div>
-      <div className={styles.transcribed_data}>
+      
+      <div className={styles.transcribed_data} >
       <textarea
         name='transcribed_data'
         placeholder='Your transcribed record shows up here'
         value={userTranscribedInput}
+        // ref={(el) => (this.componentRef = el)}
       />
       </div>
       <div className={`${styles.button} ${styles.button1}`}>
@@ -216,7 +232,7 @@ const NewRecord = (props) => {
       <div>
       <TextContainer/>
       <div className={styles.modalButton} style={{marginBottom: "4rem", marginTop: "-2rem"}}>
-      <RWebShare
+      {/* <RWebShare
         data={{
           text: "Web Share - MedInclude",
           url: "https://on.natgeo.com/2zHaNup",
@@ -225,14 +241,45 @@ const NewRecord = (props) => {
         onClick={() => console.log("shared successfully!")}
       >
         <button className={styles.modalButton1} onClick={()=> console.log("Shared successfully")}>Share</button>
-      </RWebShare>
+      </RWebShare> */}
+      <Popup
+       contentStyle =
+       {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
+       trigger={<button className={styles.modalButton2}> Share </button>}
+        modal nested>
+        {
+       <div className={styles.modal}>
+          <div className={styles.content}>
+            <p>Share your content</p>            
+          </div>
+        <div className={styles.modalButton}>
+        {/* <button className={styles.modalButton1} onClick={onShareHandler}>Share</button> */}
+        <EmailShareButton 
+            // url={`www.ihatereading.in/createrepo?framework=Create-React-App&repoId=${repoId}`}
+            title="Check out this iHateReading custom repository "
+        >
+            {/* <AiFillLinkedin style={{ opacity: '0.5'}} size={18} /> */}
+        </EmailShareButton>
+        <ReactToPrint
+          trigger={() => <Button>Print this out!</Button>}
+          content={() => userTranslateInput}
+        />
+        
+
+        {/* component to be printed */}
+        {/* <ComponentToPrint ref={(el) => (componentRef = el)} /> */}
+          {/* <button className = {styles.modalButton2} onClick={onPrintHandler} >Print</button> */}
+        </div>
+        </div>
+
+          }
+      </Popup>
       <Popup
        contentStyle =
        {{width: "70%",borderRadius:"5px",padding:"1.2rem"}} 
        trigger={<button className={styles.modalButton2}> Save </button>}
         modal nested>
         {
-                    // close => (
        <div className={styles.modal}>
           <div className={styles.content}>
             <p>{userTranslateInput}</p>            
@@ -242,7 +289,7 @@ const NewRecord = (props) => {
           <button className = {styles.modalButton2} onClick={onDownloadHandler} >Download</button>
         </div>
         </div>
-                    // )
+
           }
             </Popup>
         

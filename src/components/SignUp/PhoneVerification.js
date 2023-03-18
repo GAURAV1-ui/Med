@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
@@ -23,7 +23,10 @@ const EmailVerification = () => {
     const {firstName,email,setEmail} = useUserAuth();
     const [userOtp, setUserOtp] = useState('');
     const [flag, setFlag] = useState(false);
+    const [isActive, setISActive] = useState(false);
     const [hasCode, setHashCode] = useState("");
+    const [minutes, setMinutes] = useState(1);
+    const [seconds, setSeconds] = useState(30);
 
     const navigate = useNavigate();
 
@@ -71,6 +74,27 @@ const EmailVerification = () => {
     //     console.log(num.number.includes(number.toString()) );
     //     return num.number.includes(number.toString());
     // })};
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          if (seconds > 0) {
+            setSeconds(seconds - 1);
+          }
+      
+          if (seconds === 0) {
+            if (minutes === 0) {
+              clearInterval(interval);
+            } else {
+              setSeconds(59);
+              setMinutes(minutes - 1);
+            }
+          }
+        }, 1000);
+      
+        return () => {
+          clearInterval(interval);
+        };
+      }, [seconds]);
 
     const getOtp = async(event) => {
         event.preventDefault();
@@ -189,6 +213,29 @@ const EmailVerification = () => {
         
     }
     }
+    const resendOTP = async(event) => {
+        event.preventDefault();
+        const data = {
+            uniqueId:email
+        }
+        await axios
+        .post(`${baseUrl}/send-otp`, data)
+        .then(result => {
+          console.log(result);
+          setHashCode(result.data.hash);
+
+        })
+        .catch(err => {
+          console.log(err);
+          toast.error("Email already exist")
+
+        });
+        setMinutes(1);
+        setSeconds(30);
+      };
+
+    
+
   return (
     <div>
         <Back/>
@@ -203,7 +250,7 @@ const EmailVerification = () => {
 
         <div className={styles.heading}>
             
-            <h2>Hi {firstName}! Please enter your Phone number</h2>
+            <h2>Hi {firstName}! Please enter your email</h2>
             <p>Used for login and recovery of your records</p>
         </div>
         <form >
@@ -240,17 +287,41 @@ const EmailVerification = () => {
         <form >
         <Input 
         id = "otp" 
-        label= "OTP" 
+        label= "Verify OTP" 
         type="number" 
         // isValid={emailIsValid} 
         value ={userOtp}
         onChange={otpChangeHandler}
         // onBlur={validateEmailHandler}/>
         />
+    <div className={styles.countdown_text}>
+    <div>
+      {seconds > 0 || minutes > 0 ? (
+        
+        <p>
+          Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+          {seconds < 10 ? `0${seconds}` : seconds}
+        </p>
+      ) : (
+        <p>Didn't recieve code?</p>
+      )}
+      </div>
+        <div className={styles.btn}>
+      <button
+        disabled={seconds > 0 || minutes > 0}
+        style={{
+          color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#106e5b",
+        }}
+        onClick={resendOTP}
+      >
+        Resend OTP
+      </button>
+      </div>
+    </div>
         <ToastContainer/>
-        <div className={styles.button}>
-        <Button type="submit" onClick = {verifyOtp}>Confirm OTP</Button>
-        </div>
+        {!isActive && <div className={styles.button}>
+        <Button type="submit" onClick = {verifyOtp}>Sumbit</Button>
+        </div>}
         </form>
         
         </div>

@@ -10,6 +10,9 @@ import About from './About';
 import { useUserAuth } from "../store/UserAuthContext";
 import Contact from './Contact';
 
+const clickSecurityHandler = () => {
+  window.open ('https://nmcdn.io/e186d21f8c7946a19faed23c3da2f0da/556712d9bf0f4cb2a916cc810687d52b/files/risk-management-resources/risk-management-handouts/Data_Security_Policy.pdf','_blank', 'noreferrer');
+}
 
 const Portal = () => {
   const {userLoggedIn} = useUserAuth();
@@ -94,7 +97,7 @@ const Portal = () => {
       <About id="about"/>
       <Contact id = "contact"/>
       <div className={styles.footer}>
-        <Link to="/">Security and Trust</Link>
+        <Link to= "" onClick={clickSecurityHandler}>Security and Trust</Link>
         <Link to="/">Terms of Use</Link>
         <Link to="/">Privacy Policy</Link>
       </div>
