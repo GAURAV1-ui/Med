@@ -14,7 +14,7 @@
   }
   
   .Navbar > .nav-items > a {
-	color: #ffffff;
+	color: #87a55b;
 	font-size: 16px;
 	text-decoration: none;
 	margin: 15px;
@@ -25,6 +25,7 @@
   
   .Navbar > .nav-items > a:hover {
 	opacity: 1;
+	color:#64CACF
   }
   
   .Navbar > .nav-items > a::before {
@@ -48,7 +49,7 @@
 
   .nav-items button{
 	margin-right: 2rem;
-	color:#0d6d5a;
+	color:#015243;
 	border: none;
 	font-size: 15px;
 	font-weight: 500;
@@ -57,19 +58,19 @@
   }
 	.nav-items button:hover,
 	button:active {
-  	background: #055244;
-  	color: white;
+  	/* background: #055244; */
+  	color: #64CACF;
 }
 
 .dropdown button{
 	background-color:inherit;
-	color: white;
+	color: #87a55b;
 
 	/* margin-bottom: 2rem; */
 	/* padding: 0; */
 	/* padding: 16px; */
 	/* margin-bottom: 1rem; */
-	font-size: 16px;
+	font-size: 15px;
 	border: none;
   }
   
@@ -83,7 +84,7 @@
   .dropdown-content {
 	display: none;
 	position: absolute;
-	background-color: #f1f1f1;
+	background-color: #015243;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
@@ -91,14 +92,14 @@
   }
 
   .dropdown-content a {
-	color: black;
+	color: #87a55b;
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd;}
+  .dropdown-content a:hover {color: #64CACF;}
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
