@@ -69,10 +69,10 @@ const Navbar = () => {
         {/* {userLoggedIn && <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>} */}
         {userLoggedIn &&
         <div className="dropdown">
-        <button className="dropbtn">Dropdown</button>
+        <button className="dropbtn">Records</button>
         <div className="dropdown-content">
-          <NavLink to="/newrecord">Add</NavLink>
-          <NavLink to="/records">Records</NavLink>
+          <NavLink to="/newrecord"> New Records</NavLink>
+          <NavLink to="/records">Simplified Records</NavLink>
         </div>
       </div>
 }

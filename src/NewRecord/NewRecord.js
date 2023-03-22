@@ -17,6 +17,7 @@ import { EmailShareButton, EmailIcon, FacebookIcon, FacebookShareButton } from "
 import ReactToPrint from "react-to-print";
 import FileSaver from 'file-saver';
 import { ComponentToPrint } from './ComponentToPrint';
+import { BsPrinter } from 'react-icons/bs';
 
 const qs = require('qs')
 
@@ -231,29 +232,26 @@ const NewRecord = (props) => {
        trigger={<button className={styles.modalButton2}> Share </button>}
         modal nested>
         {
-       <div className={styles.modal}>
+       <div>
           {/* <div className={styles.content}>
             <p>Share your content</p>            
           </div> */}
-        <div className={styles.modalButton}>
+        <div>
         {/* <button className={styles.modalButton1} onClick={onShareHandler}>Share</button> */}
         <ComponentToPrint ref={componentRef} />
         <ReactToPrint
-        trigger={() => <Button>Print this out!</Button>}
+        trigger={() => <button className={styles.modalButton1} >Print</button>}
         content={() => componentRef.current}
       />
         <EmailShareButton
-            url="www.example.com"
-            subject="subject"
-            body={"hey there, pls share my link" + <a href="www.example.com">Link</a>}
-            className="Demo__some-network__share-button">
-          <EmailIcon
-            size={40}
-            round/>
+            // url="www.gmail.com"
+            subject="MedInclude Report"
+            body={`${userTranslateInput}`}
+            // className="Demo__some-network__share-button"
+            >
+          <button className = {styles.modalButton3} >Email</button>
         </EmailShareButton>
-        <EmailShareButton style={{ margin: '0.5rem' }} url="https://mail.google.com/mail" subject='t' body="<div>test</div>">
-                <EmailIcon size={60} round />
-            </EmailShareButton>
+        {/* <a href="mailto:max.mustermann@example.com?body=`${userTranslateInput}`">E-Mail to Max Mustermann</a> */}
 
         
         </div>

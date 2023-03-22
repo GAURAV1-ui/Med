@@ -5,11 +5,12 @@ import { useUserAuth } from '../store/UserAuthContext';
     const {userTranslateInput} = useUserAuth();
     return (
       <div ref={ref}>
-        <h1>MedInclude</h1>
+        <h1 style={{textAlign:"center",marginTop:"1rem"}}>MedInclude</h1>
         <br/>
-        <div>
+        <section style = {{paddingLeft:"1.2rem", paddingRight:"1rem"}}>
+
         {userTranslateInput}
-        </div>
+        </section>
         </div>
     );
   });
