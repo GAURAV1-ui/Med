@@ -13,17 +13,11 @@ import TextContainer from '../components/TextContainer/TextContainer';
 import { baseUrl } from '../api/axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { RWebShare } from "react-web-share";
-// import EmailShare from 'react-email-share-link'
-import { FacebookShareButton, FacebookIcon } from "react-share"
-import {EmailShareButton} from "react-share";
+import { EmailShareButton, EmailIcon, FacebookIcon, FacebookShareButton } from "react-share"
 import ReactToPrint from "react-to-print";
-import {EmailIcon} from "react-share"; 
 import FileSaver from 'file-saver';
+import { ComponentToPrint } from './ComponentToPrint';
 
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-// import { jsPDF } from "jspdf";
-// import TextContainer1 from '../components/TextContainer/TextContainer1';
 const qs = require('qs')
 
 
@@ -37,6 +31,7 @@ const NewRecord = (props) => {
 
   const navigate = useNavigate();
   // const usersCollectionRef = collection(db, "Users");
+  const componentRef = useRef();
 
   const userInputChangeHandler = (event) => {
     setUserInput(event.target.value);
@@ -77,7 +72,6 @@ const NewRecord = (props) => {
     }).then((res) => {
       const result = res.data.result;
       setUserTranscribedInput(result);
-      console.log("Transcribe Response", res);
     }).catch((err) => {
       console.log(err);
     })
@@ -97,7 +91,6 @@ const NewRecord = (props) => {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       }
     }).then((res) => {
-      alert(JSON.stringify(res.data))
       setUserTranslateInput(res.data.translatedText);
       // console.log(userTranslateInput);
       console.log("Translate Response", res.data.translatedText);
@@ -145,30 +138,19 @@ const NewRecord = (props) => {
     // doc.text(userTranslateInput, 20, 10);
     // doc.save("medinclude.pdf");
     var blob = new Blob([userTranslateInput], {type: "text/plain;charset=utf-8"});
-    FileSaver.saveAs(blob, "medinclude.txt");
-    console.log("rsmhb")
-    
-      
+    FileSaver.saveAs(blob, "medinclude.txt");      
 
-  //   htmlToImage.toBlob(userTranslateInput)
-  //   .then(function (blob) {
-  //   if (window.saveAs) {
-  //     window.saveAs(blob, 'my-node.png');
-  //   } else {
-  //    FileSaver.saveAs(blob, 'my-node.png');
-  //  }
-  // });
 
   }
 
-  // const onShareHandler = () => {
-      
-  // }
 
-  // const onPrintHandler = () => {
-
-  // }
-
+  // const shareButtonProps = {
+  //   url: "https://github.com/greglobinski/react-custom-share",
+  //   network: "Facebook",
+  //   text: "Give it a try - react-custom-share component",
+  //   longtext:
+  //     "Social sharing buttons for React. Use one of the build-in themes or create a custom one from the scratch."
+  // };
 
 
 
@@ -255,21 +237,25 @@ const NewRecord = (props) => {
           </div> */}
         <div className={styles.modalButton}>
         {/* <button className={styles.modalButton1} onClick={onShareHandler}>Share</button> */}
-        <FacebookShareButton 
-        url="https://www.facebook.com/"
-        quote="I am not good">
-        <FacebookIcon logoFillColor="white" />
-        </FacebookShareButton>
-
+        <ComponentToPrint ref={componentRef} />
         <ReactToPrint
-          trigger={() => <Button>Print this out!</Button>}
-          content={() => userTranslateInput}
-        />
-        
+        trigger={() => <Button>Print this out!</Button>}
+        content={() => componentRef.current}
+      />
+        <EmailShareButton
+            url="www.example.com"
+            subject="subject"
+            body={"hey there, pls share my link" + <a href="www.example.com">Link</a>}
+            className="Demo__some-network__share-button">
+          <EmailIcon
+            size={40}
+            round/>
+        </EmailShareButton>
+        <EmailShareButton style={{ margin: '0.5rem' }} url="https://mail.google.com/mail" subject='t' body="<div>test</div>">
+                <EmailIcon size={60} round />
+            </EmailShareButton>
 
-        {/* component to be printed */}
-        {/* <ComponentToPrint ref={(el) => (componentRef = el)} /> */}
-          {/* <button className = {styles.modalButton2} onClick={onPrintHandler} >Print</button> */}
+        
         </div>
         </div>
 

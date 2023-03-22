@@ -14,6 +14,10 @@ const clickSecurityHandler = () => {
   window.open ('https://nmcdn.io/e186d21f8c7946a19faed23c3da2f0da/556712d9bf0f4cb2a916cc810687d52b/files/risk-management-resources/risk-management-handouts/Data_Security_Policy.pdf','_blank', 'noreferrer');
 }
 
+const clickTermsHandler = () => {
+  window.open('https://www.cmpa-acpm.ca/static-assets/pdf/advice-and-publications/risk-management-toolbox/com_terms_of_use_agreement_template-e.pdf');
+}
+
 const Portal = () => {
   const {userLoggedIn} = useUserAuth();
   // const navigate = useNavigate();
@@ -95,11 +99,11 @@ const Portal = () => {
         </div>
       </div>
       <About id="about"/>
-      <Contact id = "contact"/>
+      <Contact id ="contact"/>
       <div className={styles.footer}>
         <Link to= "" onClick={clickSecurityHandler}>Security and Trust</Link>
-        <Link to="/">Terms of Use</Link>
-        <Link to="/">Privacy Policy</Link>
+        <Link to="" onClick = {clickTermsHandler}>Terms of Use</Link>
+        <Link to="/privacypolicy">Privacy Policy</Link>
       </div>
     </div>
   )

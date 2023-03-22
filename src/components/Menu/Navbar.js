@@ -63,10 +63,11 @@ const Navbar = () => {
       <Link to = "/"><img className="nav-logo" src ={logo}/></Link>
       <div className={`nav-items ${isOpen && "open"}`}>
         <p>{username}</p>
-        <AnchorLink href='#about'>About</AnchorLink>
+        
         <NavLink to="/" activeClassName = "">Portal</NavLink>
-        {userLoggedIn && <NavLink to="/records" activeClassName = "">Record</NavLink>}
+  
         {/* {userLoggedIn && <NavLink to='/newrecord' activeClassName = ""> Add</NavLink>} */}
+        {userLoggedIn &&
         <div className="dropdown">
         <button className="dropbtn">Dropdown</button>
         <div className="dropdown-content">
@@ -74,7 +75,9 @@ const Navbar = () => {
           <NavLink to="/records">Records</NavLink>
         </div>
       </div>
-      <AnchorLink href='#contact'>Contact</AnchorLink>
+}
+      <a href='#about'>About</a>
+      <a href='#contact'>Contact</a>
         {userLoggedIn && <button onClick={clickLogout}>
            Logout
         </button>}
