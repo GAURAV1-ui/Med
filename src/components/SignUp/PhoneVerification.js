@@ -230,8 +230,8 @@ const EmailVerification = () => {
           toast.error("Email already exist")
 
         });
-        setMinutes(1);
-        setSeconds(30);
+        setMinutes(2);
+        setSeconds(0);
       };
 
     
