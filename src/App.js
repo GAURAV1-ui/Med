@@ -56,7 +56,7 @@ function App() {
           <Route exact path ="/privacypolicy" element = {<Privacy/>}/>
           <Route exact path = "/forgetpassword" element = {<ForgetPassword/>}/>
           <Route exact path = "/auth/password/reset/:token" element = {<ForgetPasswordForm/>}/>
-          <Route exact path = "#contact" element = {<Contact/>}/>
+          <Route exact path = "/contact" component = {Contact}/>
         </Routes>  
         </UserAuthContextProvider>        
       </Router>

@@ -2,10 +2,11 @@ import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate,Link } from 'react-router-dom';
 // import Button from '../UI/Button';
-import AnchorLink from "react-anchor-link-smooth-scroll";
+// import AnchorLink from "react-anchor-link-smooth-scroll";
 import "./Navbar.css";
 import { useUserAuth } from "../../store/UserAuthContext";
 import logo from '../../Images/logo.webp'
+import { HashLink } from "react-router-hash-link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,8 +77,8 @@ const Navbar = () => {
         </div>
       </div>
 }
-      <a href='#about'>About</a>
-      <a href='#contact'>Contact</a>
+      <HashLink to='/#about'>About</HashLink>
+      <HashLink to='/#contact'>Contact</HashLink>
         {userLoggedIn && <button onClick={clickLogout}>
            Logout
         </button>}
