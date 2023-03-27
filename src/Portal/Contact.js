@@ -60,7 +60,7 @@ const Contact = () => {
             <img className={styles.about_img} src={med} alt="" />
         </div>
           <div className={`${styles.float_child} ${styles.right}`}>
-            <div>
+            <div id="contact">
             <h1>              
               Request a Demo
             </h1>

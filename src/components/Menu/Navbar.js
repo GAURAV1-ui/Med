@@ -2,7 +2,6 @@ import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate,Link } from 'react-router-dom';
 // import Button from '../UI/Button';
-// import AnchorLink from "react-anchor-link-smooth-scroll";
 import "./Navbar.css";
 import { useUserAuth } from "../../store/UserAuthContext";
 import logo from '../../Images/logo.webp'

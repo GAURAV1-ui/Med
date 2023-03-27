@@ -98,8 +98,8 @@ const Portal = () => {
           </div>
         </div>
       </div>
-      <About id="about"/>
-      <Contact id ="contact"/>
+      <About/>
+      <Contact/>
       <div className={styles.footer}>
         <Link to= "" onClick={clickSecurityHandler}>Security and Trust</Link>
         <Link to="" onClick = {clickTermsHandler}>Terms of Use</Link>
