@@ -56,6 +56,7 @@
   .lastName {
     display: flex;
     flex-direction: column;
+    
   }
   
   .firstName input[type=text] {
@@ -96,6 +97,14 @@
     border-radius: 20px;
   }
 
+  @media screen and (min-width: 1400px) {
+    .lastName {
+      width: 84%;
+    }
+    .message {
+      width: 84%;
+    }
+  }
 
   @media screen and (max-width: 900px) {
     .heading h1{
