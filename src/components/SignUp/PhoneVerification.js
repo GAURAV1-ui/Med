@@ -26,7 +26,7 @@ const EmailVerification = () => {
     const [isActive, setISActive] = useState(false);
     const [hasCode, setHashCode] = useState("");
     const [minutes, setMinutes] = useState(1);
-    const [seconds, setSeconds] = useState(30);
+    const [seconds, setSeconds] = useState(59);
 
     const navigate = useNavigate();
 
@@ -80,7 +80,7 @@ const EmailVerification = () => {
           if (seconds > 0) {
             setSeconds(seconds - 1);
           }
-      
+
           if (seconds === 0) {
             if (minutes === 0) {
               clearInterval(interval);
@@ -177,7 +177,7 @@ const EmailVerification = () => {
     const verifyOtp = async(event) => {
         event.preventDefault();
         console.log("I got it");
-    if(userOtp.length<6){
+    if(userOtp.length<6 || userOtp.length>6){
         toast.error("Enter valid otp");
     }
     const data = {
@@ -230,8 +230,8 @@ const EmailVerification = () => {
           toast.error("Email already exist")
 
         });
-        setMinutes(2);
-        setSeconds(0);
+        setMinutes(1);
+        setSeconds(59);
       };
 
     
@@ -260,7 +260,6 @@ const EmailVerification = () => {
         id = "email" 
         label= "Email" 
         type="email"
-        placeholder = "iamgaurav@gmail.com" 
         value ={email}
         onChange={emailChangeHandler}    
         />

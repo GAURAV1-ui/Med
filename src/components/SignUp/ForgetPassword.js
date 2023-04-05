@@ -45,11 +45,6 @@ const ForgetPassword = () => {
     })
   };
 
-  const clickNavigateHandler = () => {
-    navigate("/login");
-  }
-  
-
   return (
     <div>
         <Back/>
@@ -80,14 +75,13 @@ const ForgetPassword = () => {
         </div>
         <div className={styles.button}>
         <Button 
-        type="submit" onClick={onSubmitBtnClick}>Confirm Password</Button>
+        type="submit" onClick={onSubmitBtnClick}>Submit</Button>
         </div>
         </form> 
 } 
     {flag &&
     <div className={styles.ForgetPassword}>   
       <p>Check your email for verification link</p>
-      <Button onClick = {clickNavigateHandler}>Login</Button>
     </div>
     }
     </Card>

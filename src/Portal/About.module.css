@@ -79,6 +79,7 @@
     .about_img {
       width: 100%;
       margin-top: 0.1rem;
+      box-shadow: none;
     }
   
   .left{
@@ -89,6 +90,7 @@
   }
   .left p{
     font-size: 16px;
+    margin-bottom: 3rem;
   }
   
   .about_form_group{

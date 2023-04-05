@@ -191,7 +191,6 @@ const Login = () => {
      <Input 
     id = "email" 
     type="email" 
-    placeholder = "iamGaurav@gmail"
     value ={email}
     onChange ={changeEmailHandler}
     required
@@ -200,7 +199,6 @@ const Login = () => {
     <Input 
     id = "password" 
     type="password" 
-    placeholder = "•••••••••••"
     value ={password}
     onChange ={changePasswordHandler}
     required

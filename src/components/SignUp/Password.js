@@ -42,10 +42,10 @@ const Password = () => {
               password: password,
           },
         }).then((res) => {
-          console.log(res.data);
+          toast.success("Please login");
           navigate("/login");
         }).catch((err) => {
-          console.log(err);
+            toast.error("Please enter your all details")
         })
   };
 
