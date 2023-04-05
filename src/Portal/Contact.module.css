@@ -13,18 +13,17 @@
   
   }
   .about_img {
-    width: 85%;
+    width: 90%;
     /* margin-top: 1rem; */
   }
   
   .float_child { 
     width: 50%;
-    padding: 10px 15px;
+    /* padding: 10px 15px; */
   } 
   
   .left{
     padding-top: 2rem;
-    padding-left: 3rem;
     color: white;
   }
   .right {
@@ -52,8 +51,7 @@
     flex-direction: column;
   }
   .firstName .lastName label {
-    font-size: 14px;
-    
+    font-size: 14px;  
   }
   .lastName {
     display: flex;
@@ -61,7 +59,7 @@
   }
   
   .firstName input[type=text] {
-    background-color: rgb(230, 183, 126);
+    background-color:#DDBEA6;
     width: 88%;
     height: 30px;
     border: none;
@@ -70,7 +68,7 @@
     border-bottom:2px solid #015243;
   }
   .lastName input[type=email] {
-    background-color: rgb(230, 183, 126);
+    background-color: #DDBEA6;
     width: 84%;
     height: 30px;
     font-size: 18px;
@@ -88,7 +86,7 @@
     height: 100px;
     margin-top: 0.5rem;
     padding: 0.8rem;
-    background-color: rgb(230, 183, 126);
+    background-color: #DDBEA6;
     margin-bottom: 2rem;
     border-bottom:2px solid #015243;
   }

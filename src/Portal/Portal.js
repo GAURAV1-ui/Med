@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from './Portal.module.css';
 // import Button from '../components/UI/Button';
 import Navbar from '../components/Menu/Navbar';
-import med from '../Images/2.jpg';
+import med from '../Images/2.webp';
 import About from './About';
 
 import { useUserAuth } from "../store/UserAuthContext";
@@ -30,35 +30,7 @@ const Portal = () => {
   //   navigate("/");
   // }
   return (
-    // <div>
-    // <Navbar />
-    // <p>{props.data}</p>
-    // <div className={styles.hero}>
-    //   <div className={styles.hero_image}>
-    //     <div class={styles.hero_text}>
-    //       <h1>Simple. Understandable. Accessible</h1>
-          
-    //       <br/>
-    //       <div className={styles.button}>
-    //         <div className={styles.button1}>
-    //       <Button onClick = {handleClickStarted}>Get Started</Button>
-    //       </div>
-    //      <div className={styles.button2} onClick ={handleClickLogin}>
-    //       {!currentUser &&<Button >Sign Up</Button>}
-    //       </div>
-    //       </div>
-    //   </div>   
-    // </div>
-    // <div className={styles.records}>
-    // <div className={styles.portal}>
-    //     <h1>Record</h1>
-    // </div>
-    // <div className={styles.textContainer}>
-    //     <TextContainer1/>
-    // </div>
-    // </div>    
-    // </div>
-    // </div>
+
     <div>
       <Navbar/>
       <div className={styles.heading}>

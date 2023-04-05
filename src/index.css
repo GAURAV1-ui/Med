@@ -5,6 +5,21 @@
 	font-family: "Titillium Web", sans-serif;
 }
 
+html {
+	font-family: 'Darker Grotesque', sans-serif;
+}
+h1,h2,h3{
+	font-family: 'Darker Grotesque', sans-serif;
+}
+p{
+	font-family: 'Darker Grotesque', sans-serif;
+}
+label{
+	font-family: 'Darker Grotesque', sans-serif;
+}
+button{
+	font-family: 'Darker Grotesque', sans-serif;
+}
 body{
     background-color: #FAECE1;
 }

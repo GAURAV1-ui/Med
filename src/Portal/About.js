@@ -1,5 +1,5 @@
 import React from 'react'
-import med from '../Images/images.jpg';
+import med from '../Images/images.webp';
 import styles from './About.module.css';
 
 const About = () => {

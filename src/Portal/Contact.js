@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Contact.module.css';
-import med from '../Images/images2.jpg';
+import med from '../Images/images2.webp';
 import Button from '../components/UI/Button';
 import axios from 'axios';
 import { toast,ToastContainer } from 'react-toastify';
