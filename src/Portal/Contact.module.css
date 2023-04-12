@@ -42,7 +42,7 @@
   .contact{
     display: flex;
     flex-direction: row;
-    gap: 3rem;
+    gap: 2rem;
     margin-bottom: 1rem;
   }
 
@@ -52,10 +52,12 @@
   }
   .firstName .lastName label {
     font-size: 14px;  
+    /* width: 96%; */
   }
   .lastName {
     display: flex;
     flex-direction: column;
+    /* width: 94%; */
     
   }
   
@@ -70,7 +72,7 @@
   }
   .lastName input[type=email] {
     background-color: #DDBEA6;
-    width: 84%;
+    width:85%;
     height: 30px;
     font-size: 18px;
     padding: 0.6rem;
@@ -82,8 +84,9 @@
     margin-top: 1rem;
   }
   .message textarea {
+    /* text-align: left; */
     font-size: 18px;
-    width: 84%;
+    width: 85%;
     height: 100px;
     margin-top: 0.5rem;
     padding: 0.8rem;
@@ -97,12 +100,15 @@
     border-radius: 20px;
   }
 
-  @media screen and (min-width: 1400px) {
+  @media screen and (min-width: 1200px) {
+    .lastName input[type=email] {
+      max-width: 86%;
+    }
     .lastName {
-      width: 84%;
+      width: 86%;
     }
     .message {
-      width: 84%;
+      max-width: 86%;
     }
   }
 
