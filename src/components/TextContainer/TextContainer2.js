@@ -34,11 +34,11 @@ const TextContainer2 = () => {
           'Authorization':`Bearer ${token}`
         }
       }).then((res) => {
-          console.log(res.data.allNote);
+          // console.log(res.data.allNote);
           setUsers(res.data.allNote);
           
         }).catch((err) => {
-          console.log(err);
+          // console.log(err);
         })
     }, []);
 

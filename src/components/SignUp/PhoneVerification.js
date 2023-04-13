@@ -150,7 +150,7 @@ const EmailVerification = () => {
         await axios
         .post(`${baseUrl}/send-otp`, data)
         .then(result => {
-          console.log(result);
+          // console.log(result);
           setHashCode(result.data.hash);
           setFlag(true);
         //   if (
@@ -168,7 +168,7 @@ const EmailVerification = () => {
         //   }
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           toast.error("Email already exist")
           setFlag(false);
         });
@@ -176,7 +176,7 @@ const EmailVerification = () => {
     
     const verifyOtp = async(event) => {
         event.preventDefault();
-        console.log("I got it");
+        // console.log("I got it");
     if(userOtp.length<6 || userOtp.length>6){
         toast.error("Enter valid otp");
     }
@@ -189,10 +189,10 @@ const EmailVerification = () => {
             await axios
         .post(`${baseUrl}/verify-otp`, data)
         .then(result => {
-          console.log(result);
+          // console.log(result);
           navigate("/password")
         }).catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
         // axios({
         //     method: 'post',
@@ -221,12 +221,12 @@ const EmailVerification = () => {
         await axios
         .post(`${baseUrl}/send-otp`, data)
         .then(result => {
-          console.log(result);
+          // console.log(result);
           setHashCode(result.data.hash);
 
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           toast.error("Email already exist")
 
         });

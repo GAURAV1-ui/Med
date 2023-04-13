@@ -36,7 +36,7 @@ const NewRecord = (props) => {
 
   const userInputChangeHandler = (event) => {
     setUserInput(event.target.value);
-    console.log(userInput);
+    // console.log(userInput);
   }
 
   const onSubmitSourceLanguageHandler = () => {
@@ -51,9 +51,9 @@ const NewRecord = (props) => {
   useEffect(() => {
     axios.get("https://ymyfish.com/api")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       }).catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
   }, []);
 
@@ -74,7 +74,7 @@ const NewRecord = (props) => {
       const result = res.data.result;
       setUserTranscribedInput(result);
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
     })
   }
 
@@ -94,9 +94,9 @@ const NewRecord = (props) => {
     }).then((res) => {
       setUserTranslateInput(res.data.translatedText);
       // console.log(userTranslateInput);
-      console.log("Translate Response", res.data.translatedText);
+      // console.log("Translate Response", res.data.translatedText);
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
     })}else{
       toast.error("Please select destintion language");
     }
@@ -121,9 +121,9 @@ const NewRecord = (props) => {
     }).then((res) => {
       setUserTranslateInput("");
       navigate("/records");
-      console.log(res);
+      // console.log(res);
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
     })
     // await addDoc(usersCollectionRef, { createdAt:createdAt,date: date, translatedData:userTranslateInput });
     

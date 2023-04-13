@@ -7,7 +7,7 @@ import { useUserAuth } from "../store/UserAuthContext";
 
 const Records = (props) => {
   const {userTranslateInput} = useUserAuth();
-  console.log("Translate Api CheCKIG",userTranslateInput );
+  // console.log("Translate Api CheCKIG",userTranslateInput );
   const {userLoggedIn} = useUserAuth();
   return (
     <>

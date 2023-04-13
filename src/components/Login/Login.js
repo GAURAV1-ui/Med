@@ -86,7 +86,7 @@ const Login = () => {
         const userLoginHandle = async authData => {
             
             if (password.length === 0 ||email.length === 0) {
-              console.log("Error")
+              // console.log("Error")
               toast.error("Please enter email and password");
               return;
               }

@@ -41,7 +41,7 @@ const ForgetPassword = () => {
       setFlag(true);
     }).catch((err) => {
       toast.error("Email doesnot exist")
-      console.log(err);
+      // console.log(err);
     })
   };
 

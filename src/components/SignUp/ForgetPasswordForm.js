@@ -26,7 +26,7 @@ const ForgetPasswordForm = () => {
         setNewConfirmPassword(event.target.value);
     }
     const param = useParams();
-    console.log(param.token);
+    // console.log(param.token);
 
     const onSubmitPasswordBtnClick = async (event) => {
         event.preventDefault();
@@ -57,7 +57,7 @@ const ForgetPasswordForm = () => {
         navigate("/login");
       }).catch((err) => {
         toast.error("Link expired please try again")
-        console.log(err);
+        // console.log(err);
       })     
     }
  
