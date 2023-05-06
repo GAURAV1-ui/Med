@@ -14,13 +14,16 @@ const Password = () => {
 
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [newConfirmPassword, setNewConfirmPassword] = useState();
   const {firstName,lastName, email} = useUserAuth();
 
   const changePasswordHandler = (event) => {
   const passwordInputValue = event.target.value.trim();
   setPassword(passwordInputValue);
   }
-
+  const changeConfirmPasswordHandler = (event) => {
+    setNewConfirmPassword(event.target.value);
+}
     const handleSubmission = (event) => {
     event.preventDefault();
     let passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/; 
@@ -31,6 +34,11 @@ const Password = () => {
       toast.error("Password is not Valid");
       return;
     }   
+
+    if( password!== newConfirmPassword){
+      toast.error("Confirm password didn't match");
+    return;
+  }
 
       axios({
           method: 'post',
@@ -67,6 +75,13 @@ const Password = () => {
         type="password" 
         required
         onChange={changePasswordHandler}
+        />
+         <Input 
+        id = "confirmpassword" 
+        label= "Confirm Password" 
+        type="password" 
+        required
+        onChange={changeConfirmPasswordHandler}
         />
         <ToastContainer/>
          <div className={styles.instruction}>

@@ -10,8 +10,6 @@ import { useUserAuth } from '../../store/UserAuthContext';
 import  styles  from './ForgetPasswordForm.module.css';
 import HomeButton from './HomeButton';
 
-
-
 const ForgetPasswordForm = () => {
     const [newPassword, setNewPassword] = useState();
     const [newConfirmPassword, setNewConfirmPassword] = useState();

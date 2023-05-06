@@ -10,14 +10,14 @@ import { useUserAuth } from '../store/UserAuthContext';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextContainer from '../components/TextContainer/TextContainer'; 
-import { baseUrl } from '../api/axios';
+// import { baseUrl } from '../api/axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { EmailShareButton, EmailIcon, FacebookIcon, FacebookShareButton } from "react-share"
+import { EmailShareButton} from "react-share"
 import ReactToPrint from "react-to-print";
 import FileSaver from 'file-saver';
 import { ComponentToPrint } from './ComponentToPrint';
-import { BsPrinter } from 'react-icons/bs';
+// import { BsPrinter } from 'react-icons/bs';
 
 const qs = require('qs')
 
@@ -74,7 +74,6 @@ const NewRecord = (props) => {
       const result = res.data.result;
       setUserTranscribedInput(result);
     }).catch((err) => {
-      // console.log(err);
     })
   }
 
